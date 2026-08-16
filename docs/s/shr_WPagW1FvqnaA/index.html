@@ -1,0 +1,3632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta name="robots" content="noindex,nofollow,noarchive"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Vesc Research 24호 — 권한 경계가 갈리는 AI</title>
+<meta name="description" content="여러 사람이 같이 쓰는 AI와, 여러 봇이 보여도 혼자 써야 하는 AI를 권한 경계로 가릅니다."/>
+<meta name="color-scheme" content="light"/>
+<meta name="generator" content="vesc-apple-kit"/>
+<style>
+/* Vesc Research — matched to live apple.com (2026)
+ * Extracted tokens: light glass nav 44px, SF Pro, #1d1d1f / #f5f5f7 / #0071e3,
+ * centered heroes, blue pill CTAs (11px 21px / 8px 15px), 980px content band.
+ */
+
+:root {
+  --black: #000000;
+  --ink: #1d1d1f;
+  --ink-80: rgba(0, 0, 0, 0.8);
+  --ink-56: rgba(0, 0, 0, 0.56);
+  --ink-48: rgba(0, 0, 0, 0.48);
+  /* Solid secondary for small text (WCAG AA on white/gray ~4.6:1+) */
+  --ink-secondary: #6e6e73;
+  --gray: #f5f5f7;
+  --white: #ffffff;
+  --blue: #0071e3; /* rgb(0,113,227) live CTA fill */
+  --link: #0066cc; /* rgb(0,102,204) live outline CTA */
+  --link-on-dark: #2997ff;
+  --elev-dark: #1d1d1f;
+  --line: rgba(0, 0, 0, 0.08);
+  --line-on-dark: rgba(255, 255, 255, 0.16);
+  --content: 980px;
+  --pad: clamp(1.25rem, 4.2vw, 2.75rem);
+  --nav-h: 44px; /* live globalnav height */
+  --font: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial,
+    -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica,
+    Arial, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* One radius for all research thumbs (glance + media-row + video-embed) */
+  --radius-media: 1rem;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 25px; /* live body */
+  letter-spacing: -0.374px; /* live body */
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* min-width: 0 group — §2.12. Zero-specificity :where(), so adding members
+ * cannot change how any existing rule resolves. New members: the §2 primitives
+ * that can hold wide content, plus .promo/.promo-row (missing since day one). */
+:where(main, section, .unit-inner, .tile, .grid2, .stats, .table-scroller, pre, .mermaid-wrap,
+  .matrix-wrap, .disclose, .disclose-body, .artopen-inner, .rail-inner,
+  .unit-grid, .unit-main, .unit-side, .unit-board, .promo, .promo-row) {
+  min-width: 0;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+/* Body prose links must not rely on color alone (WCAG 1.4.1)
+ * §2.12 additions below the original seven. Deliberately EXCLUDED:
+ *   .chiplink            — chips are distinguished by pill shape, not underline (§2.5)
+ *   .verdict-answer a    — §1.6a makes an anchor there impossible to create
+ *   .artopen-headline a  — same guard */
+p a,
+li a,
+.note a,
+.foot-unit a,
+.lede a,
+td a,
+.contract a,
+.verdict-because a,
+.verdict-unless a,
+.matrix-cell a,
+.pullquote a,
+.artopen-standfirst a,
+.disclose-body a,
+.unit-side a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: from-font;
+}
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip link — keyboard / a11y first paint (not taste) */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.5rem;
+  z-index: 200;
+  padding: 0.55rem 0.9rem;
+  border-radius: 980px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 120ms ease-out;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+
+/* —— Live globalnav: LIGHT glass —— */
+.gnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(1.8) blur(20px);
+  -webkit-backdrop-filter: saturate(1.8) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  color: var(--ink);
+}
+.gnav-inner {
+  width: min(100% - 2.4rem, 1024px);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+.gnav a.brand {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  opacity: 0.88;
+}
+.gnav a.brand:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+.gnav .meta {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-56);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* —— Secondary chapter strip (research adaptation of apple subnav) —— */
+.chapters {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: saturate(1.8) blur(16px);
+  -webkit-backdrop-filter: saturate(1.8) blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.chapters-inner {
+  width: min(100% - 2.4rem, var(--content));
+  margin: 0 auto;
+  display: flex;
+  gap: 0.15rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  padding: 0.45rem 0;
+  scrollbar-width: none;
+}
+.chapters-inner::-webkit-scrollbar {
+  display: none;
+}
+.chapters a {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink-80);
+  text-decoration: none;
+  padding: 0.55rem 0.85rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 980px;
+  white-space: nowrap;
+}
+.chapters a:hover {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+}
+/* Draw the focus ring INSIDE the chip. .chapters-inner and .rail-inner are both
+ * `overflow-x: auto` with 0 horizontal padding, so an outset ring on the first
+ * chip is clipped by the scroll container (measured on A: 5px ring, left side
+ * cut clean off at 375/768/1200). The chips are 44px tall with a 980px radius,
+ * so an inset ring stays clearly visible. WCAG 2.4.13. */
+.chapters a:focus-visible,
+.rail-inner a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+.chapters a.is-active {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+/* Anchor landing clearance. A stacks TWO sticky bars — gnav 44px + .chapters
+ * 59px = 103px, not the 88px the contract asserts — so the old +52px (96px
+ * total) let a target heading land 7px under the bar. .promo-row and .artopen
+ * are anchor targets too (A's #pick is a promo_row, and it was the one measured
+ * partially occluded) but are not .unit, so they need the same clearance. */
+.promo-row,
+.artopen {
+  scroll-margin-top: calc(var(--nav-h) + 60px);
+}
+
+/* —— Full-bleed modules (apple section rhythm) —— */
+.unit {
+  scroll-margin-top: calc(var(--nav-h) + 60px);
+  width: 100%;
+  padding: clamp(3.25rem, 8vw, 5.5rem) 0;
+  text-align: left;
+}
+.unit.hero {
+  /* apple homepage hero: huge light module, centered copy */
+  padding: clamp(4.5rem, 11vw, 7.5rem) 0 clamp(3.5rem, 8vw, 5.5rem);
+  text-align: center;
+  background: var(--gray);
+}
+.unit-inner {
+  width: min(100% - 2 * var(--pad), var(--content));
+  margin: 0 auto;
+}
+.unit.hero .unit-inner {
+  width: min(100% - 2 * var(--pad), 720px);
+}
+.unit.dark {
+  background: var(--black);
+  color: var(--gray);
+  text-align: center;
+}
+.unit.dark .unit-inner {
+  width: min(100% - 2 * var(--pad), 720px);
+}
+.unit.dark.prose {
+  text-align: left;
+}
+.unit.dark.prose .unit-inner {
+  width: min(100% - 2 * var(--pad), var(--content));
+}
+.unit.dark p,
+.unit.dark li {
+  color: rgba(255, 255, 255, 0.92);
+}
+.unit.dark h1,
+.unit.dark h2,
+.unit.dark h3 {
+  color: var(--gray);
+}
+.unit.dark a {
+  color: var(--link-on-dark);
+}
+.unit.gray {
+  background: var(--gray);
+  color: var(--ink);
+}
+.unit.white {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* 2-up promo row like apple homepage tiles */
+.promo-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100% - 2 * var(--pad), 1260px);
+  margin: 0 auto 12px;
+}
+.promo {
+  border-radius: 0;
+  min-height: clamp(22rem, 48vw, 30rem);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2rem);
+  text-align: center;
+  background: var(--gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.promo.dark {
+  background: var(--black);
+  color: var(--gray);
+}
+.promo.dark h3,
+.promo.dark p,
+.promo.dark li {
+  color: var(--gray);
+}
+.promo .steps {
+  margin-top: 1rem;
+}
+.promo h2,
+.promo h3 {
+  margin: 0 0 0.4rem;
+}
+
+/* —— Type (live apple scales) —— */
+.eyebrow {
+  display: block;
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
+}
+.unit.dark .eyebrow,
+.promo.dark .eyebrow {
+  color: var(--gray);
+}
+
+h1 {
+  font-family: var(--font-display);
+  margin: 0 0 0.55rem;
+  font-size: clamp(2.5rem, 7vw, 3.5rem); /* 40–56 */
+  line-height: 1.07;
+  font-weight: 600;
+  letter-spacing: -0.28px;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.unit.hero h1 {
+  font-size: clamp(2.75rem, 7.5vw, 3.5rem);
+  line-height: 1.0714; /* ~60/56 */
+}
+
+h2 {
+  font-family: var(--font-display);
+  margin: 0 0 0.55rem;
+  font-size: clamp(2rem, 4.5vw, 2.5rem); /* ~40 */
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.unit.hero h2 {
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  letter-spacing: -0.28px;
+  line-height: 1.0714;
+}
+
+h3 {
+  font-family: var(--font-display);
+  margin: 1.35rem 0 0.45rem;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem); /* 21–28 */
+  line-height: 1.14;
+  font-weight: 600;
+  letter-spacing: 0.196px;
+  color: var(--ink);
+}
+
+.lede {
+  margin: 0 auto 1.35rem;
+  max-width: 28em;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.8vw, 1.75rem); /* 21–28 live */
+  line-height: 1.14;
+  font-weight: 400;
+  letter-spacing: 0.196px;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.unit:not(.hero):not(.dark) .lede {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 36em;
+  font-size: clamp(1.15rem, 2.2vw, 1.3125rem);
+  letter-spacing: 0.011em;
+  line-height: 1.381;
+  color: var(--ink-80);
+}
+.unit.dark .lede {
+  color: rgba(245, 245, 247, 0.92);
+}
+
+p {
+  margin: 0 0 0.95rem;
+  max-width: 42rem;
+  color: var(--ink-80);
+  text-wrap: pretty;
+  /* Korean: never split 어절 mid-word. URLs still wrap via a/code rules. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+.unit.hero p:not(.lede):not(.eyebrow) {
+  margin-left: auto;
+  margin-right: auto;
+}
+li {
+  color: var(--ink-80);
+  margin: 0.4em 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+ul,
+ol {
+  margin: 0 0 1.1rem;
+  padding-left: 1.15em;
+  max-width: 42rem;
+}
+.unit.hero ul,
+.unit.hero ol {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+/* —— Live CTA pills —— */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+  margin-top: 1.15rem;
+}
+.unit:not(.hero):not(.dark) .cta-row {
+  justify-content: flex-start;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 21px; /* live large pill */
+  border-radius: 980px;
+  font-family: var(--font);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  text-decoration: none !important;
+  border: 1px solid transparent;
+  line-height: 1;
+}
+.cta-sm {
+  min-height: 44px; /* was 36 — hit target */
+  padding: 10px 16px;
+  font-size: 14px;
+}
+.cta-fill {
+  background: var(--blue);
+  color: #fff !important;
+}
+.cta-fill:hover {
+  background: #0077ed;
+}
+.cta-ghost {
+  background: transparent;
+  color: var(--link) !important;
+  border-color: var(--link);
+}
+.cta-ghost:hover {
+  background: rgba(0, 102, 204, 0.06);
+}
+.unit.dark .cta-ghost {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+.unit.dark .cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.cta-link {
+  background: transparent;
+  color: var(--link) !important;
+  border: 0;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  min-height: auto;
+}
+.cta-link::after {
+  content: " ›";
+  font-weight: 400;
+}
+.unit.dark .cta-link {
+  color: var(--link-on-dark) !important;
+}
+
+/* —— Stats —— */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: 2rem auto 0;
+  max-width: 52rem;
+  text-align: left;
+}
+.unit.hero .stats {
+  text-align: center;
+}
+.stat .k {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.12px;
+  color: var(--ink-secondary); /* was ink-48 — failed WCAG AA on white */
+  margin-bottom: 0.35rem;
+}
+.unit.dark .stat .k {
+  color: rgba(255, 255, 255, 0.72);
+}
+.stat .v {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.14;
+  color: inherit;
+  word-break: break-word;
+}
+.stat .v a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.stat .s {
+  margin-top: 0.35rem;
+  font-size: 12px;
+  color: var(--ink-secondary);
+}
+.unit.dark .stat .s {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* —— Soft tiles (apple card: no border, gray fill) —— */
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 1.25rem 0;
+}
+.tile {
+  border-radius: 18px;
+  padding: clamp(1.25rem, 2.5vw, 1.6rem);
+  background: var(--white);
+  min-width: 0;
+  text-align: left;
+  box-shadow: none;
+}
+.unit.white .tile {
+  background: var(--gray);
+}
+.unit.dark .tile {
+  background: #272729;
+}
+.tile h3 {
+  margin-top: 0;
+}
+.tile p:last-child,
+.tile ul:last-child {
+  margin-bottom: 0;
+}
+
+.note {
+  border-radius: 18px;
+  padding: 1.15rem 1.25rem;
+  margin: 1.25rem 0;
+  background: rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+.unit.gray .note {
+  background: var(--white);
+}
+.unit.dark .note {
+  background: rgba(255, 255, 255, 0.08);
+}
+.note.ok {
+  background: rgba(48, 209, 88, 0.12);
+}
+.note.warn {
+  background: rgba(255, 159, 10, 0.14);
+}
+.note .t {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  text-transform: none;
+}
+.note.ok .t {
+  color: #0b7a2b;
+}
+.note.warn .t {
+  color: #8a4b00;
+}
+.unit.dark .note .t {
+  color: rgba(255, 255, 255, 0.88);
+}
+.unit.dark .note.ok .t {
+  color: #7dffa0;
+}
+.unit.dark .note.warn .t {
+  color: #ffd28a;
+}
+
+.contract {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 1.1rem 1.2rem;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--ink);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  text-align: left;
+  margin: 0 auto;
+}
+.unit.dark .contract {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--gray);
+}
+.unit.hero .contract {
+  max-width: 36rem;
+}
+
+/* —— Tables / code / mermaid —— */
+.table-scroller {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.1rem 0 1.35rem;
+  border-radius: 18px;
+  background: var(--white);
+  text-align: left;
+}
+/* .table-scroller carries tabindex="0"; without this it falls back to the
+ * Chromium UA ring (outline: auto 1px #005fcc, offset 0) while the sibling
+ * .matrix-wrap draws a designed 2px/3px ring. Same kit, same primitive, same
+ * ring. Mirrors .matrix-wrap:focus-visible. */
+.table-scroller:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+.unit.white .table-scroller {
+  background: var(--gray);
+}
+.unit.dark .table-scroller {
+  background: rgba(255, 255, 255, 0.06);
+}
+table {
+  width: max(100%, 36rem);
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+.unit.dark th,
+.unit.dark td {
+  border-bottom-color: var(--line-on-dark);
+}
+th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-secondary); /* AA on white/gray table chrome */
+  white-space: normal;
+}
+.unit.dark th {
+  color: rgba(255, 255, 255, 0.72);
+}
+tr:last-child td {
+  border-bottom: 0;
+}
+
+pre,
+code {
+  font-family: var(--mono);
+}
+pre {
+  margin: 1rem 0 1.25rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 18px;
+  background: var(--ink);
+  color: var(--gray);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 100%;
+  text-align: left;
+}
+code.inline,
+:not(pre) > code {
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 5px;
+  word-break: break-word;
+}
+.unit.dark code.inline,
+.unit.dark :not(pre) > code {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mermaid-wrap {
+  margin: 1.15rem auto;
+  padding: 1rem;
+  border-radius: 18px;
+  background: var(--white);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.unit.white .mermaid-wrap {
+  background: var(--gray);
+}
+.unit.dark .mermaid-wrap {
+  background: #fbfbfd;
+}
+.mermaid {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+.mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.steps {
+  counter-reset: s;
+  list-style: none;
+  padding-left: 0;
+  max-width: 42rem;
+  text-align: left;
+}
+.unit.hero .steps,
+.unit.dark:not(.prose) .steps {
+  margin-left: auto;
+  margin-right: auto;
+}
+.steps li {
+  position: relative;
+  padding-left: 2.6em;
+  margin: 0 0 0.85rem;
+}
+.steps li::before {
+  counter-increment: s;
+  content: counter(s);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(0, 113, 227, 0.12);
+  color: var(--blue);
+}
+.unit.dark .steps li::before {
+  background: rgba(41, 151, 255, 0.18);
+  color: var(--link-on-dark);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  justify-content: center;
+}
+.unit:not(.hero):not(.dark) .badges {
+  justify-content: flex-start;
+}
+.badge {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0.3rem 0.7rem;
+  border-radius: 980px;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--ink);
+}
+.unit.dark .badge {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--gray);
+}
+.badge.mute {
+  opacity: 1;
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.06);
+}
+.unit.dark .badge.mute {
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.foot-unit {
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+  font-size: 12px;
+  line-height: 1.47059;
+  letter-spacing: -0.12px;
+  color: var(--ink-secondary);
+  text-align: left;
+}
+.foot-unit code {
+  font-size: 11px;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* —— Hub (index) —— */
+.hub {
+  width: min(100% - 2 * var(--pad), 42rem);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 4.5rem) 0 4.5rem;
+  text-align: left;
+}
+.hub-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+  font-size: 14px;
+}
+.hub h1 {
+  margin-top: 1.1rem;
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 2rem;
+}
+.chip {
+  font-size: 12px;
+  color: var(--ink-48);
+  background: var(--gray);
+  border-radius: 980px;
+  padding: 0.35rem 0.75rem;
+}
+.hub h2 {
+  font-family: var(--font);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-48);
+  font-weight: 600;
+  margin: 2rem 0 0.85rem;
+}
+.list {
+  display: grid;
+  gap: 12px;
+}
+a.item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--gray);
+  border-radius: 18px;
+  padding: 1.35rem 1.4rem;
+  transition: background 0.2s ease;
+}
+a.item:hover {
+  text-decoration: none;
+  background: #ececef;
+}
+.item .t {
+  font-family: var(--font-display);
+  font-size: 1.3125rem;
+  font-weight: 600;
+  letter-spacing: 0.011em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.item .d {
+  margin-top: 0.4rem;
+  color: var(--ink-80);
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: -0.016em;
+}
+.item .tags {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.item .tag {
+  font-size: 11px;
+  color: var(--ink-48);
+  background: var(--white);
+  border-radius: 980px;
+  padding: 0.2rem 0.55rem;
+}
+.item .m {
+  margin-top: 0.65rem;
+  font-size: 12px;
+  color: var(--link);
+  word-break: break-all;
+}
+
+/* —— Footer directory strip (apple-like) —— */
+.site-foot {
+  background: var(--gray);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 0 2.5rem;
+  font-size: 12px;
+  color: var(--ink-secondary);
+  line-height: 1.33337;
+  letter-spacing: -0.12px;
+}
+.site-foot-inner {
+  width: min(100% - 2 * var(--pad), var(--content));
+  margin: 0 auto;
+}
+.site-foot a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.site-foot a:hover {
+  text-decoration: underline;
+}
+
+/* —— Responsive —— */
+@media (max-width: 834px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid2,
+  .promo-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .promo {
+    min-height: 18rem;
+  }
+}
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gnav .meta {
+    display: none;
+  }
+  table {
+    width: max(100%, 22rem);
+    font-size: 13.5px;
+  }
+  .cta {
+    padding: 11px 18px;
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  a.item {
+    transition: none;
+  }
+  /* Transition only — never `transform: none`, which would pin the skip link
+   * on screen at rest instead of hiding it above the viewport. */
+  .skip-link {
+    transition: none;
+  }
+}
+@media print {
+  .gnav,
+  .chapters {
+    position: static;
+    background: #fff;
+    color: #000;
+  }
+  .unit.dark {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .unit.dark h1,
+  .unit.dark h2,
+  .unit.dark h3,
+  .unit.dark p,
+  .unit.dark li {
+    color: #000 !important;
+  }
+}
+
+
+/* —— Emil/Apple craft pass (apple-design + emil-design-eng review) —— */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Press feedback — pointer-down, not only hover (Apple §1 / Emil buttons) */
+.cta,
+.chapters a,
+a.item,
+.gnav a.brand {
+  transition: transform 140ms var(--ease-out), background-color 160ms var(--ease-out),
+    opacity 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+}
+.cta:active,
+.chapters a:active,
+a.item:active {
+  transform: scale(0.97);
+}
+.cta:active {
+  transition-duration: 100ms;
+}
+
+/* Hit targets ≥44px (Apple HIG / Emil) */
+.chapters a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.gnav a.brand {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.15rem;
+}
+
+/* Reading measure ~65ch (Emil typography) */
+p,
+li,
+.lede,
+.note p,
+.tile p,
+.foot-unit {
+  max-width: 65ch;
+}
+.unit.hero .lede {
+  max-width: 28em;
+}
+
+/* Stats / code numbers align */
+.stat .v,
+td:first-child code,
+th {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Content scrolls under sticky chrome */
+main {
+  position: relative;
+  z-index: 0;
+}
+.gnav,
+.chapters {
+  z-index: 100;
+}
+
+/* Chapter active = wayfinding status feedback */
+.chapters a.is-active {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Promo tiles: soft lift without SaaS shadow soup */
+.promo {
+  transition: background-color 180ms var(--ease-out), transform 140ms var(--ease-out);
+}
+.promo:hover {
+  background: #ececef;
+}
+.promo.dark:hover {
+  background: #111;
+}
+@media (hover: hover) and (pointer: fine) {
+  .promo:hover {
+    transform: none; /* no float theater on large modules */
+  }
+}
+
+/* Prefer system optical sizing */
+h1, h2, h3, .lede, .display {
+  font-optical-sizing: auto;
+}
+
+/* Reduced transparency / contrast */
+@media (prefers-reduced-transparency: reduce) {
+  .gnav,
+  .chapters {
+    background: #fff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+@media (prefers-contrast: more) {
+  .gnav,
+  .chapters {
+    border-bottom: 1px solid #000;
+  }
+  .cta-ghost {
+    border-width: 2px;
+  }
+  a {
+    text-decoration: underline;
+  }
+  .cta {
+    text-decoration: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .chapters a,
+  a.item,
+  .gnav a.brand,
+  .promo {
+    transition: opacity 200ms ease, background-color 200ms ease !important;
+    transform: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.hero-contract{margin-top:2rem;}
+
+
+/* Kit-owned promo body (no inline styles) */
+.promo-list {
+  text-align: left;
+  max-width: 22rem;
+  margin: 0.75rem auto 0.5rem;
+  padding-left: 1.15em;
+}
+
+/* Product / reference image row (shopping research) */
+/* Media radius is ONE token — glance thumbs and row thumbs must match. */
+.media-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 0.5rem;
+  max-width: 48rem;
+}
+.media-row figure {
+  margin: 0;
+  min-width: 0;
+}
+.media-row img {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-media, 1rem);
+  background: var(--gray);
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.media-row a {
+  display: block;
+  border-radius: var(--radius-media, 1rem);
+  overflow: hidden;
+}
+.media-row a:active {
+  transform: scale(0.97);
+  transition: transform 120ms ease-out;
+}
+.media-row figcaption {
+  margin-top: 0.55rem;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: -0.016em;
+  color: var(--ink-secondary);
+  text-align: left;
+  word-break: keep-all;
+}
+.media-row figcaption strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+/* Landscape thumbs / video posters (not product square crop) */
+.media-row.wide {
+  max-width: 52rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.media-row.wide img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+/* YouTube / video embed — kit-owned aspect box, no inline styles */
+.video-embed {
+  position: relative;
+  width: 100%;
+  max-width: 44rem;
+  aspect-ratio: 16 / 9;
+  margin: 1.25rem 0 0.75rem;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  background: #000;
+}
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border: 0;
+}
+.video-cap {
+  max-width: 44rem;
+  margin: 0 0 1rem;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+}
+.video-cap a {
+  font-weight: 600;
+}
+.promo-foot {
+  font-size: 14px;
+  color: var(--ink-secondary);
+  max-width: 22rem;
+  margin: 0.5rem auto 0;
+  letter-spacing: -0.016em;
+}
+.promo.dark .promo-foot {
+  color: rgba(255, 255, 255, 0.72);
+}
+.promo .note {
+  margin-top: 1rem;
+  max-width: 22rem;
+  text-align: left;
+}
+.unit.dark.prose .lede {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+  max-width: 36em;
+}
+
+
+/* —— skin: toss-compass ——
+ * HONEST PROVENANCE (2026-08-03):
+ * - NOT a drop-in of TDS React components (Apps-in-Toss license restricted).
+ * - NOT Apple HIG package (none public).
+ * - Color CSS vars: npm @toss/tds-colors (linked as colors.light.css).
+ * - Font: npm pretendard OFL (linked as pretendardvariable.css) — public fallback for Toss Product Sans.
+ * - Layout still Vesc kit blocks; radii/type scale tuned to public Toss DESIGN.md + live toss.im.
+ * See assets/vendor/PROVENANCE.md
+ */
+body.skin-toss-compass {
+  --ink: var(--adaptiveGrey900, #191f28);
+  --ink-80: var(--adaptiveGrey800, #333d4b);
+  --ink-56: var(--adaptiveGrey600, #6b7684);
+  --ink-48: var(--adaptiveGrey500, #8b95a1);
+  --gray: var(--adaptiveGrey50, #f9fafb);
+  --gray-soft: var(--adaptiveGrey100, #f2f4f6);
+  --white: var(--adaptiveBackground, #ffffff);
+  --blue: var(--adaptiveBlue500, #3182f6);
+  --blue-hover: var(--adaptiveBlue700, #1b64da);
+  --blue-soft: var(--adaptiveBlue50, #e8f3ff);
+  --link: var(--adaptiveBlue500, #3182f6);
+  --link-on-dark: var(--adaptiveBlue300, #64a8ff);
+  --elev-dark: var(--adaptiveGrey900, #191f28);
+  --line: var(--adaptiveHairlineBorder, #e5e8eb);
+  --line-strong: var(--adaptiveGrey300, #d1d6db);
+  --danger: var(--adaptiveRed500, #f04452);
+  --ok: var(--adaptiveGreen500, #03b26c);
+  --warn: var(--adaptiveOrange500, #fe9800);
+  --content: 720px;
+  --content-wide: 920px;
+  --pad: clamp(1.25rem, 5vw, 2rem);
+  --nav-h: 56px;
+  --radius-btn: 7px;
+  --radius-card: 12px;
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-display: var(--font);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+body.skin-toss-compass .gnav {
+  height: var(--nav-h);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+}
+body.skin-toss-compass .gnav a.brand {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  opacity: 1;
+  color: var(--ink);
+}
+body.skin-toss-compass .gnav .meta {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-56);
+}
+body.skin-toss-compass .chapters {
+  top: var(--nav-h);
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+}
+body.skin-toss-compass .chapters a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-56);
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+}
+body.skin-toss-compass .chapters a.is-active,
+body.skin-toss-compass .chapters a:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+  text-decoration: none;
+}
+body.skin-toss-compass .unit {
+  padding: clamp(3.5rem, 10vw, 6.5rem) 0;
+  scroll-margin-top: calc(var(--nav-h) + 52px);
+}
+body.skin-toss-compass .unit.hero {
+  /* DESIGN.md: flat fills only — no gradient marketing */
+  padding: clamp(4.5rem, 12vw, 7.5rem) 0 clamp(3.5rem, 9vw, 5.5rem);
+  background: var(--white);
+  text-align: center;
+}
+body.skin-toss-compass .unit.hero .unit-inner {
+  width: min(100% - 2 * var(--pad), 720px);
+}
+body.skin-toss-compass .unit-inner {
+  width: min(100% - 2 * var(--pad), var(--content));
+}
+body.skin-toss-compass .unit.white { background: var(--white); }
+body.skin-toss-compass .unit.gray { background: var(--gray); }
+body.skin-toss-compass .unit.soft { background: var(--gray-soft); color: var(--ink); }
+body.skin-toss-compass .unit.dark {
+  background: var(--ink);
+  color: var(--gray);
+  text-align: left;
+}
+body.skin-toss-compass .unit.dark .unit-inner {
+  width: min(100% - 2 * var(--pad), var(--content));
+}
+body.skin-toss-compass .eyebrow {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--blue);
+  margin: 0 0 0.85rem;
+}
+body.skin-toss-compass .unit.dark .eyebrow { color: var(--link-on-dark); }
+body.skin-toss-compass h1 {
+  font-size: clamp(2.25rem, 6vw, 3.75rem); /* ~36–60 toward Toss 50–66 */
+  line-height: 1.28;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.35rem;
+  color: #000;
+}
+body.skin-toss-compass .unit.hero h1 {
+  font-size: clamp(2.5rem, 6.8vw, 4rem);
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+}
+body.skin-toss-compass h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.1rem;
+  color: var(--ink);
+}
+body.skin-toss-compass h3 {
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 1.75rem 0 0.65rem;
+  color: var(--ink);
+}
+body.skin-toss-compass .lede {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--ink-80);
+  margin: 0 0 1.5rem;
+  max-width: 36em;
+}
+body.skin-toss-compass .unit.hero .lede {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+}
+body.skin-toss-compass .unit p,
+body.skin-toss-compass .unit li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-80);
+}
+body.skin-toss-compass .unit.dark p,
+body.skin-toss-compass .unit.dark li {
+  color: rgba(255, 255, 255, 0.9);
+}
+body.skin-toss-compass .unit p {
+  max-width: 36em;
+  margin: 0 0 1rem;
+}
+body.skin-toss-compass .contract,
+body.skin-toss-compass .hero-contract {
+  margin-top: 1.5rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-card);
+  background: var(--blue-soft);
+  color: var(--ink-80);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  border: 0;
+}
+body.skin-toss-compass .cta-row {
+  gap: 0.6rem;
+}
+body.skin-toss-compass .cta {
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 20px;
+  min-height: 48px;
+  transition: background 120ms ease-out, transform 96ms ease-out;
+}
+body.skin-toss-compass .cta:active {
+  transform: scale(0.98);
+}
+body.skin-toss-compass .cta-fill {
+  background: var(--blue);
+  color: #f9fafb;
+}
+body.skin-toss-compass .cta-fill:hover {
+  background: var(--blue-hover);
+  text-decoration: none;
+}
+body.skin-toss-compass .cta-ghost {
+  /* Toss secondary: tinted blue + deep blue text */
+  border: 0;
+  color: var(--blue-hover);
+  background: var(--blue-soft);
+}
+body.skin-toss-compass .cta-ghost:hover {
+  background: var(--adaptiveBlue100, #c9e2ff);
+  text-decoration: none;
+}
+body.skin-toss-compass .badges {
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+body.skin-toss-compass .badge {
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border: 0;
+}
+body.skin-toss-compass .badge.mute {
+  background: var(--gray-soft);
+  color: var(--ink-56);
+}
+body.skin-toss-compass .promo-row {
+  width: min(100% - 2 * var(--pad), var(--content-wide));
+  gap: 16px;
+  margin: 0 auto;
+}
+body.skin-toss-compass .promo-row.layout-stack {
+  grid-template-columns: 1fr;
+  max-width: min(100% - 2 * var(--pad), 720px);
+  gap: 20px;
+}
+body.skin-toss-compass .promo-row.layout-triple {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+body.skin-toss-compass .promo {
+  min-height: 0;
+  border-radius: var(--radius-card);
+  text-align: left;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(25, 31, 40, 0.04);
+}
+body.skin-toss-compass .promo.dark {
+  background: #12151a;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+body.skin-toss-compass .promo h3 {
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  line-height: 1.35;
+}
+body.skin-toss-compass .promo > p {
+  margin: 0 0 0.85rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--ink-56);
+}
+body.skin-toss-compass .promo-list {
+  margin: 0 0 0.9rem;
+  padding-left: 1.15rem;
+  width: 100%;
+}
+body.skin-toss-compass .promo-list li {
+  margin: 0.35rem 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-align: left;
+}
+body.skin-toss-compass .promo-foot {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  font-size: 1rem;
+  line-height: 1.55;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  width: 100%;
+}
+body.skin-toss-compass .promo .cta-row {
+  margin-top: 1rem;
+  justify-content: flex-start;
+}
+body.skin-toss-compass .note {
+  border-radius: var(--radius-card);
+  padding: 1rem 1.1rem;
+  margin: 1.25rem 0 0;
+  background: var(--blue-soft);
+  border: 0;
+}
+body.skin-toss-compass .note.warn {
+  background: var(--adaptiveOrange50, #fff3e0);
+}
+body.skin-toss-compass .note.ok {
+  background: var(--adaptiveGreen50, #f0faf6);
+}
+body.skin-toss-compass .steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+body.skin-toss-compass .steps li {
+  position: relative;
+  padding: 1rem 0 1rem 3rem;
+  border-top: 1px solid var(--line);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+body.skin-toss-compass .steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: grid;
+  place-items: center;
+}
+body.skin-toss-compass .table-scroller {
+  margin-top: 1.1rem;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+body.skin-toss-compass table {
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+body.skin-toss-compass .mermaid-wrap {
+  margin: 1.25rem 0;
+  border-radius: var(--radius-card);
+  background: var(--gray);
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+}
+body.skin-toss-compass pre {
+  border-radius: var(--radius-card);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+body.skin-toss-compass .foot-unit {
+  margin-top: 1.75rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink-56);
+}
+body.skin-toss-compass .site-foot {
+  background: var(--gray-soft);
+  color: var(--ink-56);
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
+}
+body.skin-toss-compass .site-foot a {
+  color: var(--ink);
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  body.skin-toss-compass .promo-row,
+  body.skin-toss-compass .promo-row.layout-triple {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.skin-toss-compass .cta {
+    transition: none;
+  }
+}
+
+/* —— Promo titles (h2.promo-title; heading-order safe) —— */
+.promo-title,
+.promo h2.promo-title {
+  font-family: var(--font-display);
+  margin: 0 0 0.45rem;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.14;
+  font-weight: 600;
+  letter-spacing: 0.196px;
+  color: inherit;
+}
+.promo.dark .promo-title {
+  color: var(--gray);
+}
+
+/* —— Skin: reading-first (Emil measure + quieter display) —— */
+body.skin-reading-first {
+  font-size: 18px;
+  line-height: 1.55;
+}
+body.skin-reading-first .unit-inner {
+  width: min(100% - 2 * var(--pad), 42rem);
+}
+body.skin-reading-first .unit.hero .unit-inner {
+  width: min(100% - 2 * var(--pad), 38rem);
+}
+body.skin-reading-first .lede {
+  max-width: 32em;
+  font-size: clamp(1.15rem, 2vw, 1.375rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+body.skin-reading-first .unit:not(.hero):not(.dark) .lede {
+  max-width: 34em;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+body.skin-reading-first p,
+body.skin-reading-first li {
+  max-width: 36rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+body.skin-reading-first .contract {
+  font-size: 15px;
+  line-height: 1.6;
+}
+body.skin-reading-first .chapters a {
+  font-size: 13px;
+}
+body.skin-reading-first .stats {
+  max-width: 40rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* —— Skin: decide (decision pages: sticky verdict + denser matrix) —— */
+body.skin-decide .unit.hero {
+  padding-bottom: clamp(2.5rem, 6vw, 3.5rem);
+}
+body.skin-decide .unit.hero .contract.hero-contract {
+  border: 1px solid rgba(0, 113, 227, 0.28);
+  background: rgba(0, 113, 227, 0.06);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+}
+body.skin-decide .promo-row.layout-triple {
+  gap: 10px;
+}
+body.skin-decide .promo {
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+body.skin-decide .table-scroller {
+  border: 1px solid var(--line);
+}
+body.skin-decide .chapters {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+body.skin-decide .gnav .meta::before {
+  content: "Decide · ";
+  color: var(--blue);
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+ * EXTENSION 2026-08-10 — kit/EXTENSION-CONTRACT-2026-08-10.md
+ * §2 base primitives · §2.11 surfaces · §2.13 unit layouts · §4.3 shell
+ * §6.3 overflow rules · §3 skins (editorial / cockpit / newsletter)
+ *
+ * Placement: this block is APPENDED, so it is last in source order. That is
+ * deliberate — §6.3's `.cta { line-height: 1.2 }` must beat `.cta { line-height: 1 }`
+ * at :453, and the new label classes must beat the element `p` rules at :400 / :1038.
+ *
+ * Prefix policy (§0.2 / §3.0):
+ *   - every class in the §2.1 registry is NEW (grep-verified absent), so its base
+ *     rule is written UNPREFIXED here and cannot reach any of the 28 shipped reports.
+ *   - every rule that restyles an EXISTING class lives under a `body.skin-*` prefix,
+ *     except the §6.3 overflow group and the §2.11 `.unit.soft` bug fix, which the
+ *     contract requires to be global.
+ * ========================================================================== */
+
+/* —— §2.11 tokens: the new paper surface + --gray-soft promoted out of a skin —— */
+:root {
+  --paper: #f7f4ee;   /* measured: --ink 15.33 · --ink-80 11.86 · --ink-secondary 4.62 · --link 5.07 */
+  --gray-soft: #f2f4f6;
+}
+
+/* —— §2.2 vh — visually-hidden utility —— */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* —— §2.11 surfaces ——
+ * `paper` is new. `soft` is a BUG FIX: 17 shipped reports set surface: soft and
+ * render transparent because the only definition was body.skin-toss-compass .unit.soft
+ * (:1347, specificity 0,3,0 — still wins over this 0,2,0 rule). */
+.unit.paper {
+  background: var(--paper);
+}
+.unit.soft {
+  background: var(--gray-soft);
+}
+/* MANDATORY companions — .unit.gray and .unit.white both carry these.
+ * Without them a .note inside a soft unit paints rgba(0,0,0,.04) on #f2f4f6
+ * (near-invisible). Variant A's #flow unit is the live witness. */
+.unit.soft .note {
+  background: var(--white);
+}
+.unit.soft .table-scroller,
+.unit.soft .mermaid-wrap {
+  background: var(--white);
+}
+
+/* —— §2.3 verdict ——
+ * <div class="verdict verdict-{bar|kicker|tldr}"> with p.verdict-label,
+ * h1|p.verdict-answer, ul.verdict-because, p.verdict-unless > span.verdict-unless-k,
+ * p.verdict-asof. Never a fixed px width — `bar` is a block (§6.3). */
+.verdict {
+  margin: 0 0 1.5rem;
+  max-width: 100%;
+}
+.verdict > :last-child {
+  margin-bottom: 0;
+}
+.verdict-label {
+  margin: 0 0 0.5rem;
+  max-width: none;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+.verdict-answer {
+  margin: 0 0 0.75rem;
+  max-width: 34rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.6vw, 2rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.verdict-because {
+  margin: 0 0 0.8rem;
+  padding-left: 1.15em;
+  max-width: 34rem;
+}
+.verdict-because li {
+  margin: 0.2em 0;
+  color: var(--ink-80);
+}
+.verdict-unless {
+  margin: 0 0 0.5rem;
+  max-width: 34rem;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-80);
+}
+.verdict-unless-k {
+  display: inline-block;
+  margin-right: 0.45em;
+  padding: 0.12em 0.55em;
+  border-radius: 980px;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ink); /* 14.77 on the composited pill over white */
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.verdict-asof {
+  margin: 0;
+  max-width: none;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+}
+/* variant shapes — colour and type are the skins' job (§3.0) */
+.verdict-bar {
+  border-left: 3px solid var(--ink); /* 16.83 on white — non-text, needs 3.0 */
+  padding-left: clamp(0.85rem, 2vw, 1.15rem);
+}
+.verdict-kicker {
+  border: 0;
+  padding: 0;
+}
+.verdict-tldr {
+  padding: clamp(1rem, 3vw, 1.35rem) clamp(1.1rem, 3.2vw, 1.4rem);
+  border: 1px solid rgba(0, 0, 0, 0.45); /* 3.36 on white — UI boundary >= 3.0 */
+  border-radius: 14px;
+  background: var(--white); /* solid, so --ink-secondary keeps 5.07 on every surface */
+}
+
+/* —— §2.4 matrix ——
+ * <figure class="matrix matrix-{compare|figure}"> > div.matrix-wrap[role=region]
+ * > table > th.matrix-axis / th.matrix-opt / td.matrix-cell, + figcaption.matrix-cap.
+ * UA `figure { margin: 1em 40px }` must die or the table stops sharing the measure. */
+.matrix {
+  margin: 1.25rem 0 1.5rem;
+  max-width: 100%;
+}
+.matrix-wrap {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.matrix-wrap:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.matrix table {
+  border-collapse: collapse;
+  /* The base `table { width: max(100%, 36rem) }` (:656) is a floor meant for
+   * generic table parts riding inside .table-scroller. A matrix is a purpose-built
+   * primitive with its own <=599px reflow, so the floor must not reach it: at
+   * 36rem (576px) it out-sizes editorial's 507px .matrix-figure inset and clips
+   * the last column at EVERY width >=600px — invisible to the audit gate, because
+   * .matrix-wrap scrolls internally and the document itself never overflows.
+   * (0,1,1) beats the (0,0,1) element rule regardless of source order. */
+  width: 100%;
+  min-width: 0;
+}
+/* (0,1,0) and (0,2,0) beat the element rules `th { font-size: 12px }` (:672)
+ * and `table { width: max(100%, 36rem) }` (:656) at any source position. */
+.matrix-axis {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  white-space: normal;
+}
+.matrix thead .matrix-axis,
+.matrix .matrix-opt {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--ink-secondary); /* 5.07 white · 4.66 gray · 4.62 paper · 4.60 soft */
+}
+.matrix-cell {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.matrix-cell.is-win {
+  font-weight: 600;
+}
+.matrix-mark {
+  margin-left: 0.35em;
+  font-size: 0.8em;
+  line-height: 1;
+  vertical-align: 0.08em;
+}
+/* accent rows are marked by a rule + weight, never by a fill: a tinted row would
+ * drop skin-cockpit's --blue .is-win text below 4.5 on cells that are both. */
+.matrix tbody tr.is-accent > *:first-child {
+  box-shadow: inset 3px 0 0 var(--ink);
+}
+.matrix tbody tr.is-accent .matrix-axis {
+  font-weight: 700;
+}
+.matrix-tally > * {
+  border-top: 2px solid var(--line);
+  font-weight: 600;
+  color: var(--ink);
+}
+.matrix-cap {
+  margin: 0.6rem 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+}
+
+/* —— §2.5 chips —— pill shape is the affordance, never colour alone (WCAG 1.4.1) —— */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.45rem;
+  margin: 0.75rem 0 1rem;
+}
+.chiplink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  max-width: 100%;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid rgba(0, 0, 0, 0.45); /* 3.36 white · 3.31 paper · 3.30 gray · 3.31 soft */
+  border-radius: 980px;
+  background: transparent;
+  color: var(--link); /* 5.57 white · 5.07 paper · 5.11 gray · 5.05 soft */
+  font-size: 13px;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+/* chips are distinguished by shape; the §2.12 `.unit-side a` underline must not
+ * reach them (B's chips[toc] lives inside <aside class="unit-side">). */
+.chips .chiplink {
+  text-decoration: none;
+}
+.chips .chiplink:hover {
+  background: rgba(0, 0, 0, 0.04); /* --link stays 4.62+ on the composited fill */
+  text-decoration: none;
+}
+.chiplink:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+.chips-toc {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  margin: 0.5rem 0 0;
+}
+.chips-foot {
+  margin: 1.1rem 0 0;
+}
+.chips-inline {
+  margin: 0.5rem 0 0.9rem;
+  gap: 0.3rem 0.35rem;
+}
+
+/* —— §2.6 divider —— <hr class="divider divider-{rule|asterism|space}"> ——
+ * The UA groove must go (`border: 0`); the glyph and the short rule are ::before
+ * content, which renders despite the UA `overflow: hidden` because the box sizes
+ * to its in-flow generated content. No px width — the <hr> stays 100% wide. */
+.divider {
+  border: 0;
+  height: auto;
+  margin: 2rem 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+}
+.divider-rule::before {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  max-width: 100%;
+  height: 1px;
+  background: var(--ink); /* 16.83 on white */
+}
+.divider-asterism {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+.divider-asterism::before {
+  content: "2";
+  display: block;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  color: var(--ink-secondary);
+}
+.divider-space {
+  margin: 3rem 0;
+}
+
+/* —— §2.7 disclose —— native <details>/<summary>; no ARIA is added anywhere —— */
+.disclose {
+  margin: 1.1rem 0 1.35rem;
+  padding: 0 1.05rem;
+  border: 1px solid rgba(0, 0, 0, 0.45); /* interactive container — UI boundary >= 3.0 */
+  border-radius: 12px;
+  background: var(--white);
+}
+.disclose > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.75rem 0;
+  list-style: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.disclose > summary::-webkit-details-marker {
+  display: none;
+}
+.disclose > summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--ink-secondary); /* 5.07 on white */
+}
+.disclose[open] > summary::after {
+  content: "2";
+}
+.disclose > summary:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.disclose-body {
+  padding: 0 0 1rem;
+}
+.disclose-body > :last-child {
+  margin-bottom: 0;
+}
+
+/* —— §2.9 pullquote —— UA `blockquote { margin: 1em 40px }` must be reset ——
+ * No negative margin-inline anywhere: §6.3 requires any column break to stay
+ * inside --pad at 375, and the safest bound is not to reach outside at all. */
+.pullquote {
+  margin: 1.75rem 0;
+  padding-left: clamp(0.9rem, 2.5vw, 1.25rem);
+  border-left: 3px solid var(--ink-secondary); /* 5.07 on white — non-text, needs 3.0 */
+  max-width: 100%;
+}
+/* `:not(.pullquote-attrib)` is not tidiness — it removes the §3.1 trap-1 shape at
+ * the source. A bare `.pullquote p` also matches `p.pullquote-attrib`, and any
+ * skin that later writes `body.skin-* .pullquote p` (0,2,2) would then outrank
+ * `.pullquote-attrib` and set the attribution in display type. Measured: it did. */
+.pullquote p:not(.pullquote-attrib) {
+  margin: 0 0 0.5rem;
+  max-width: 28em;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--ink);
+}
+.pullquote .pullquote-attrib {
+  margin: 0;
+  max-width: none;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--ink-secondary);
+}
+
+/* —— §2.10 article_open (block type, B-exclusive) —— */
+.artopen {
+  padding: clamp(3.5rem, 9vw, 6rem) 0 clamp(2rem, 5vw, 3rem);
+}
+.artopen-inner {
+  width: min(100% - 2 * var(--pad), var(--content)); /* same idiom as .unit-inner, never px */
+  margin: 0 auto;
+}
+.artopen-kicker {
+  margin: 0 0 1rem;
+  max-width: none;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+.artopen-headline {
+  margin: 0 0 1rem;
+  font-size: clamp(2.25rem, 6vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.artopen-standfirst {
+  margin: 0 0 1.25rem;
+  max-width: 32em;
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--ink-80);
+}
+.artopen-byline {
+  margin: 0;
+  max-width: none;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+}
+.artopen-dropcap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 3.1em;
+  line-height: 0.82;
+  font-weight: 600;
+  padding-right: 0.08em;
+  padding-top: 0.06em;
+  color: var(--ink);
+}
+
+/* —— §4.3 shell: progress (nav: progress) —— decorative, aria-hidden ——
+ * Pure CSS scroll-driven animation. No JS, no runtime custom property, so it
+ * cannot introduce an inline style=. Unsupported engines hold it at scaleX(0). */
+.progress {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: var(--ink);
+  animation: vesc-scroll-progress linear both;
+  animation-timeline: scroll(root block);
+}
+/* forced-colors maps both the track (rgba black) and the bar (--ink) to Canvas,
+ * leaving a white bar on a white track. Decorative, so not a WCAG failure —
+ * but a free fix. */
+@media (forced-colors: active) {
+  .progress {
+    background: Canvas;
+    border-bottom: 1px solid GrayText;
+  }
+  .progress-bar {
+    background: Highlight;
+    forced-color-adjust: none;
+  }
+}
+@keyframes vesc-scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* —— §4.3 shell: rail (nav: rail) ——
+ * ONE <nav class="rail"><ol class="rail-inner"> for both models; only CSS moves.
+ * < 1100px: sticky one-line segmented control, .rail-inner scrolls on x.
+ * >= 1100px: fixed 168px left rail. The 168px is yielded by
+ * `body.skin-cockpit main { padding-inline-start: 168px }` (§3.3) — padding on a
+ * block adds no width, so 1200px stays at overflow 0.
+ * .rail-inner is an <ol> and its children are <li>, so `ul, ol { padding-left:
+ * 1.15em; max-width: 42rem }` (:416) and `li { max-width: 65ch }` (:1038-1044) capture
+ * it and left-align the control at 672px unless reset here (§2.12.1). */
+.rail {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(1.8) blur(16px);
+  -webkit-backdrop-filter: saturate(1.8) blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+.rail-inner {
+  display: flex;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0.3rem var(--pad); /* resets `ul, ol { padding-left: 1.15em }` */
+  max-width: none; /* resets `ul, ol { max-width: 42rem }` */
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.rail-inner::-webkit-scrollbar {
+  display: none;
+}
+.rail-inner li {
+  flex: 0 0 auto;
+  max-width: none; /* reset li :1038-1044 */
+  margin: 0;
+}
+.rail-inner a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 0.7rem;
+  border-radius: 980px;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--ink-secondary); /* 5.07 on the glass, 4.66 on the cockpit canvas */
+  text-decoration: none;
+  white-space: nowrap;
+}
+.rail-inner a:hover {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+}
+/* state is carried by aria-current (set by vesc-report.js, §4.5), not colour alone */
+.rail-inner a.is-active,
+.rail-inner a[aria-current="true"] {
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+/* >= 1100px the SAME <nav> becomes a fixed 168px left rail. No DOM change.
+ * Unprefixed because .rail / .rail-inner are §2.1 registry classes (§0.2); the
+ * skin's half of the deal — yielding the 168px — is the one prefixed rule, and
+ * it lives in §3.3 below because it restyles `main`, an existing element. */
+@media (min-width: 1100px) {
+  .rail {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    bottom: 0;
+    width: 168px;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  .rail-inner {
+    display: block;
+    padding: 1.25rem 0.85rem;
+    overflow-x: visible;
+  }
+  .rail-inner li {
+    margin: 0 0 2px;
+  }
+  .rail-inner a {
+    display: flex;
+    min-height: 34px;
+    padding: 0.35rem 0.6rem;
+    white-space: normal;
+  }
+}
+
+/* —— §2.13 unit layout shapes — the chassis. Renderer-emitted DOM, styled here.
+ * A skin may NOT reproduce these by styling .unit-inner (§3.0). —— */
+
+/* aside: a margin column that becomes a stacked block below 1120px */
+.unit-grid {
+  display: block;
+}
+.unit-main > :last-child,
+.unit-side > :last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 1120px) {
+  /* The grid must be WIDER than --content, or the side column eats the measure.
+     Main track keeps --content; the aside and the gap are added on top. */
+  .unit-inner.unit-grid {
+    width: min(100% - 2 * var(--pad), calc(var(--content) + 11rem + 3.5rem));
+    display: grid;
+    grid-template-columns: minmax(0, var(--content)) minmax(0, 11rem);
+    column-gap: 3.5rem;
+    align-items: start;
+  }
+  .unit-side {
+    position: sticky;
+    top: calc(var(--nav-h) + 1.25rem);
+  }
+}
+
+/* board: a two-column part grid that collapses below 1100px */
+.unit-board {
+  display: block;
+}
+@media (min-width: 1100px) {
+  .unit-board {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 16px;
+    align-items: start;
+  }
+  .unit-board > h2,
+  .unit-board > .matrix,
+  .unit-board > .table-scroller,
+  .unit-board > .disclose,
+  .unit-board > .mermaid-wrap {
+    grid-column: 1 / -1;
+  }
+}
+
+/* —— §2.4 375px: matrix reflows to one card per axis at <= 599px.
+ * It must NOT rely on .matrix-wrap scrolling at these widths.
+ * `.matrix table { width: 100%; min-width: 0 }` is MANDATORY: the element rules
+ * `table { width: max(100%, 36rem) }` (:656) and the <=480px `max(100%, 22rem)`
+ * (:965) are not overridden by `display: block`, and the measured cost is 97px of
+ * overflow at 500px — a viewport the audit gate never samples. —— */
+@media (max-width: 599px) {
+  .matrix table,
+  .matrix thead,
+  .matrix tbody,
+  .matrix tfoot,
+  .matrix tr,
+  .matrix th,
+  .matrix td {
+    display: block;
+  }
+  .matrix table {
+    width: 100%;
+    min-width: 0;
+  }
+  .matrix thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  .matrix td::before {
+    content: attr(data-axis); /* CSS, not an inline style — §6.2 permits it */
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-secondary);
+  }
+  .matrix th,
+  .matrix td {
+    padding: 0.3rem 0;
+    border-bottom: 0;
+  }
+  .matrix tbody .matrix-axis {
+    padding-top: 0.85rem;
+    font-size: 15px;
+  }
+  .matrix tbody tr {
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .matrix tbody tr:last-child {
+    border-bottom: 0;
+  }
+  .matrix tbody tr.is-accent > *:first-child {
+    box-shadow: none;
+  }
+  .matrix tbody tr.is-accent {
+    padding-left: 0.7rem;
+    box-shadow: inset 3px 0 0 var(--ink);
+  }
+  .matrix tfoot .matrix-axis {
+    padding-top: 0.85rem;
+  }
+  .matrix-tally > * {
+    border-top: 0;
+  }
+  .matrix tfoot tr {
+    border-top: 2px solid var(--line);
+  }
+}
+
+/* —— §6.3 Long unbroken URLs (autolink) must never blow the 375px gate ——
+ * Measured: a 200-char URL produced mobile:1293px of overflow, from
+ * .foot-unit > a (692), .badges > .badge (1407), .cta-row > .cta (1648),
+ * .contract > a (1611). p / li / td / th / .lede were already safe. */
+.foot-unit,
+.contract,
+.badge,
+.cta,
+h1,
+h2,
+h3,
+.lede,
+.stat .k,
+.verdict-answer,
+.verdict-because li,
+.verdict-unless,
+.matrix-cell,
+.matrix-axis,
+.matrix-cap,
+.chiplink,
+.pullquote p,
+.pullquote-attrib,
+.artopen-headline,
+.artopen-standfirst,
+.artopen-byline,
+.unit-side,
+.disclose > summary,
+h1, h2, h3,
+.lede,
+.eyebrow,
+.foot-unit,
+.note .t,
+.note p,
+figcaption {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+/* Long tokens only — never body Hangul */
+a[href^="http"],
+code,
+pre,
+.item .m {
+  overflow-wrap: anywhere;
+}
+.item .m {
+  word-break: break-all;
+}
+.cta,
+.chiplink {
+  max-width: 100%;
+}
+/* MANDATORY companion: overflow-wrap changes min-content sizing, so a .cta label
+ * can now wrap to two lines. `.cta { line-height: 1 }` (:453) would render them
+ * touching. This rule is last in source order and beats it at equal specificity. */
+.cta {
+  line-height: 1.2;
+}
+
+/* Skim media: same radius family as .media-row (Apple Help consistency).
+ * Structure: image is the only rounded surface; caption sits outside — mirrors .media-row. */
+.media-glance {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 1rem;
+  margin: 0.85rem 0 1.1rem;
+  max-width: 48rem;
+}
+.media-glance a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+  transition: transform 120ms ease-out;
+}
+.media-glance a:active {
+  transform: scale(0.97);
+}
+.media-glance img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-media, 1rem);
+  background: var(--gray);
+}
+.media-glance .g-cap {
+  display: block;
+  margin-top: 0.55rem;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: -0.016em;
+  color: var(--ink-secondary);
+  word-break: keep-all;
+}
+.media-glance .g-cap strong {
+  display: inline;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.media-glance .g-cap strong::after {
+  content: " · ";
+  font-weight: 400;
+  color: var(--ink-secondary);
+}
+/* Optional deep watch — never the first screen */
+.video-optional {
+  margin: 0.75rem 0 1rem;
+  max-width: 42rem;
+}
+.video-optional summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--link);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  word-break: keep-all;
+}
+.video-optional summary::-webkit-details-marker {
+  display: none;
+}
+.video-optional[open] summary {
+  margin-bottom: 0.55rem;
+}
+.video-optional .video-embed {
+  margin-top: 0.35rem;
+}
+
+/* Video facade — oEmbed fields as host-page text; iframe only after click.
+ * External: LiquiChart facade-before-iframe; lite-youtube pattern. */
+.video-facade-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+  margin: 0.9rem 0 1.15rem;
+  max-width: 42rem;
+}
+@media (min-width: 700px) {
+  .video-facade-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.video-facade {
+  margin: 0.85rem 0 1.1rem;
+  max-width: 42rem;
+  min-width: 0;
+}
+.video-facade-row .video-facade {
+  margin: 0;
+  max-width: none;
+}
+.video-facade-play,
+.video-facade-poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--gray);
+  border-radius: var(--radius-media, 1rem);
+  overflow: hidden;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 120ms ease-out;
+}
+.video-facade-play:active,
+.video-facade-poster:active {
+  transform: scale(0.97);
+}
+.video-facade-play:focus-visible,
+.video-facade-poster:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+.video-facade img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.video-facade-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: -1.625rem 0 0 -1.625rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+.video-facade-btn::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -0.45rem 0 0 -0.28rem;
+  border-style: solid;
+  border-width: 0.5rem 0 0.5rem 0.85rem;
+  border-color: transparent transparent transparent #fff;
+}
+.video-facade figcaption {
+  margin-top: 0.6rem;
+}
+.video-facade-title {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.video-facade-meta {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ink-secondary);
+  word-break: keep-all;
+}
+.video-facade-fallback {
+  margin: 0.35rem 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.video-facade-fallback a {
+  color: var(--link);
+  text-decoration: none;
+}
+.video-facade-fallback a:hover {
+  text-decoration: underline;
+}
+.video-facade .video-embed {
+  margin: 0;
+}
+
+/* Source / link / repo cards — Slack-class unfurl + README gist on host page.
+ * GitHub default image: opengraph.githubassets.com/1/{owner}/{repo} */
+.source-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  margin: 0.9rem 0 1.2rem;
+  max-width: 42rem;
+}
+.source-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0.85rem 0 1.1rem;
+  max-width: 42rem;
+  min-width: 0;
+  border: 1px solid var(--line, rgba(0, 0, 0, 0.08));
+  border-radius: calc(var(--radius-media, 1rem) + 2px);
+  overflow: hidden;
+  background: #fff;
+}
+.source-cards .source-card {
+  margin: 0;
+  max-width: none;
+}
+.source-card-media {
+  display: block;
+  background: var(--gray);
+  text-decoration: none;
+}
+.source-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+.source-card-body {
+  padding: 0.85rem 1rem 1rem;
+  min-width: 0;
+}
+.source-card-domain {
+  margin: 0 0 0.25rem;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink-secondary);
+  word-break: keep-all;
+}
+.source-card-title {
+  display: block;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  word-break: keep-all;
+}
+.source-card-title:hover {
+  color: var(--link);
+}
+.source-card-meta {
+  margin: 0.35rem 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+  word-break: keep-all;
+}
+.source-card-excerpt {
+  margin: 0.55rem 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.source-card-bullets {
+  margin: 0.55rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.source-card-bullets li {
+  margin: 0.2rem 0;
+}
+.source-card-go {
+  margin: 0.7rem 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.source-card-go a {
+  color: var(--link);
+  text-decoration: none;
+}
+.source-card-go a:hover {
+  text-decoration: underline;
+}
+body.skin-newsletter .source-card {
+  /* letter column: keep card light; not a third "boxed verdict" */
+  box-shadow: none;
+}
+
+
+/* ==========================================================================
+ * §3 SKINS — every selector below begins with its own body class (§3.0).
+ * A skin may not create, remove, or reshape a layout: no display:grid/flex with
+ * more than one track on .unit-inner / .unit-main / .unit-side / .unit-board /
+ * .artopen-inner / main, and no grid-template-columns on .unit-grid/.unit-board.
+ * The one carve-out is `body.skin-cockpit main { padding-inline-start: 168px }`.
+ *
+ * §3.1 trap 1 is defeated structurally: NO skin below writes `.unit p` or
+ * `.unit li` (0,2,2). Prose sizing goes on `body.skin-* p` (0,1,2), which every
+ * class-level override (0,2,1) beats without having to think about it.
+ * §3.1 trap 2: base `!important` on .cta / .cta-fill / .cta-ghost / .cta-link
+ * cannot be beaten by specificity — only `background` is reachable, which is all
+ * the "zero blue fills" rules below touch.
+ * ========================================================================== */
+
+/* —— Skin: editorial — variant B (§3.2) ——————————————————————————————————
+ * One surface (paper) forever; separation is a divider-rule plus space, never a
+ * fill change. Serif is scoped to >= 25px display sizes only — AppleMyungjo is
+ * thin at body size and Batang is Windows-only, so Korean body text stays on --font. */
+body.skin-editorial {
+  --content: 34rem;
+  --font-editorial: ui-serif, "New York", Georgia, serif;
+  font-size: 19px;
+  line-height: 1.71;
+  background: var(--paper);
+}
+body.skin-editorial p {
+  margin: 0 0 1.15em;
+  line-height: 1.71;
+}
+body.skin-editorial li {
+  margin: 0.35em 0;
+  line-height: 1.71;
+}
+body.skin-editorial h2 {
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  margin: 0 0 0.85rem;
+}
+body.skin-editorial h3 {
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 600;
+  margin: 1.7rem 0 0.5rem;
+}
+/* single surface — .unit.dark is deliberately NOT forced to paper: it would put
+ * rgba(255,255,255,.92) prose on #f7f4ee. B simply must not author a dark unit. */
+body.skin-editorial .unit,
+body.skin-editorial .unit.hero,
+body.skin-editorial .unit.white,
+body.skin-editorial .unit.gray,
+body.skin-editorial .unit.soft,
+body.skin-editorial .unit.paper,
+body.skin-editorial .artopen,
+body.skin-editorial .site-foot {
+  background: var(--paper);
+}
+body.skin-editorial .unit {
+  padding: clamp(1.75rem, 4.5vw, 2.75rem) 0;
+}
+body.skin-editorial .unit.hero {
+  text-align: left;
+}
+body.skin-editorial .site-foot {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+body.skin-editorial .gnav {
+  background: rgba(247, 244, 238, 0.82);
+}
+body.skin-editorial .artopen {
+  padding: clamp(4rem, 10vw, 7rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+}
+body.skin-editorial .artopen-headline {
+  font-family: var(--font-editorial);
+  font-size: clamp(2.25rem, 6.2vw, 3.25rem); /* 36 -> 52px */
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+body.skin-editorial .artopen-standfirst {
+  font-family: var(--font-editorial);
+  font-size: 25px; /* serif floor — never below 25px, per the Korean serif rule */
+  line-height: 1.45;
+  max-width: 26em;
+}
+body.skin-editorial .artopen-dropcap::first-letter {
+  font-family: var(--font-editorial);
+  font-size: 3.4em;
+  line-height: 0.8;
+}
+body.skin-editorial .pullquote {
+  border-left-width: 2px;
+}
+body.skin-editorial .pullquote p:not(.pullquote-attrib) {
+  font-family: var(--font-editorial);
+  font-size: 25px; /* serif floor */
+  line-height: 1.36;
+  color: var(--ink);
+}
+/* captioned inset, radius 4, #f2f1ed (§3.2). --ink-secondary lands on 4.49 there —
+ * one hundredth under AA — so every small text inside the inset moves to --ink-80
+ * (11.69). This is the same trap that got #f4f1ea rejected as --paper. */
+body.skin-editorial .matrix-figure {
+  background: #f2f1ed;
+  border-radius: 4px;
+  padding: 1rem 1.15rem 0.9rem;
+}
+body.skin-editorial .matrix-figure .matrix-cap,
+body.skin-editorial .matrix-figure .matrix-opt,
+body.skin-editorial .matrix-figure thead .matrix-axis {
+  color: var(--ink-80);
+}
+body.skin-editorial .matrix-cell,
+body.skin-editorial .matrix-axis {
+  font-size: 15px;
+}
+body.skin-editorial .divider {
+  margin: 2.75rem 0;
+}
+body.skin-editorial .divider-rule::before {
+  width: 5rem;
+}
+body.skin-editorial .unit-side {
+  font-size: 15px;
+}
+body.skin-editorial .unit-side p,
+body.skin-editorial .unit-side li {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-secondary); /* 4.62 on paper */
+}
+body.skin-editorial .chiplink {
+  font-size: 13px;
+}
+body.skin-editorial .progress {
+  background: rgba(0, 0, 0, 0.08);
+}
+body.skin-editorial .progress-bar {
+  background: var(--ink);
+}
+
+/* —— Skin: cockpit — variant C (§3.3) ——————————————————————————————————
+ * One canvas (#f5f5f7); content sits in white panels, 1px --line hairline,
+ * radius 10, no shadow. Type is flat: the contract says .verdict-answer at 32px
+ * is the ONLY type over 16px on the page, so every other scale is capped at 16.
+ * NEVER put --blue on a gray ground: #0071e3 on #f5f5f7 is 4.31 and fails. The
+ * panels are white (4.70) and that is the only place blue text appears. */
+body.skin-cockpit {
+  --content: 1180px;
+  font-size: 15px;
+  line-height: 1.45;
+  background: var(--gray);
+}
+body.skin-cockpit p,
+body.skin-cockpit li {
+  font-size: 15px;
+  line-height: 1.45;
+  margin: 0 0 0.6rem;
+}
+body.skin-cockpit h1 {
+  font-size: 32px;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+body.skin-cockpit h2 {
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+}
+body.skin-cockpit h3 {
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 600;
+  margin: 1rem 0 0.4rem;
+  color: var(--ink);
+}
+body.skin-cockpit .unit,
+body.skin-cockpit .unit.hero,
+body.skin-cockpit .unit.white,
+body.skin-cockpit .unit.gray,
+body.skin-cockpit .unit.soft,
+body.skin-cockpit .unit.paper {
+  background: var(--gray);
+}
+body.skin-cockpit .unit {
+  padding: 20px 0;
+  text-align: left;
+}
+/* the white panel. Cosmetic only — no display change, no track: §3.0 holds. */
+body.skin-cockpit .unit-inner {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: none;
+}
+body.skin-cockpit .unit.hero .unit-inner,
+body.skin-cockpit .unit.dark .unit-inner {
+  width: min(100% - 2 * var(--pad), var(--content));
+}
+body.skin-cockpit .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  margin: 0 0 0.5rem;
+}
+/* base is `.unit:not(.hero):not(.dark) .lede` at (0,4,0) — this is (0,5,1) */
+body.skin-cockpit .lede,
+body.skin-cockpit .unit:not(.hero):not(.dark) .lede {
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 46em;
+}
+/* §3.1 trap 1: this must beat the base `h1` rule at :335 — (0,2,1) does */
+body.skin-cockpit .verdict-answer {
+  font-size: 32px;
+  line-height: 1.18;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  max-width: 24em;
+}
+body.skin-cockpit .verdict-bar {
+  border-left-color: var(--ink);
+  margin-bottom: 0;
+}
+body.skin-cockpit .verdict-because li,
+body.skin-cockpit .verdict-unless {
+  font-size: 13px;
+  line-height: 1.4;
+}
+body.skin-cockpit .stats {
+  margin: 0;
+  gap: 12px;
+  max-width: none;
+}
+body.skin-cockpit .stat .v {
+  font-size: 16px; /* contract: nothing but .verdict-answer may exceed 16px */
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+body.skin-cockpit .stat .k {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+body.skin-cockpit .stat .s {
+  font-size: 11px;
+}
+body.skin-cockpit .matrix {
+  margin: 0.75rem 0 0.5rem;
+}
+body.skin-cockpit .matrix-cell {
+  font-size: 13.5px;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+body.skin-cockpit .matrix th,
+body.skin-cockpit .matrix td {
+  padding: 8px 10px; /* 13.5 x 1.35 + 16 = 34.2px row height */
+}
+body.skin-cockpit .matrix thead .matrix-axis,
+body.skin-cockpit .matrix .matrix-opt {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+/* row headers at body weight — §2.12.1 requires >= (0,2,0); this is (0,3,2) */
+body.skin-cockpit .matrix tbody .matrix-axis {
+  font-size: 13.5px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+/* winner marking: blue on white panels only (4.70). Zero blue fills. */
+body.skin-cockpit .matrix-compare .matrix-cell.is-win {
+  color: var(--blue);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+/* crossover rows go amber #b25000 (5.20 on white) as TEXT plus a 3px marker.
+ * An amber FILL was rejected: it drops --blue .is-win text to 4.27 on any cell
+ * that is both a winner and on the accent row. */
+body.skin-cockpit .matrix tbody tr.is-accent > *:first-child {
+  box-shadow: inset 3px 0 0 #b25000;
+}
+body.skin-cockpit .matrix tbody tr.is-accent .matrix-axis {
+  color: #b25000;
+}
+body.skin-cockpit .cta {
+  font-size: 15px;
+  min-height: 40px;
+  padding: 9px 16px;
+}
+body.skin-cockpit .cta-fill {
+  background: var(--ink); /* zero blue fills; the base `color: #fff !important` is 18.1 here */
+}
+body.skin-cockpit .cta-fill:hover {
+  background: #000;
+}
+body.skin-cockpit .chiplink {
+  min-height: 28px;
+  font-size: 12px;
+}
+body.skin-cockpit .disclose {
+  margin: 0.75rem 0;
+}
+body.skin-cockpit .disclose > summary {
+  font-size: 13px;
+  min-height: 40px;
+}
+body.skin-cockpit .badge {
+  font-size: 11px;
+}
+body.skin-cockpit .note {
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+body.skin-cockpit .table-scroller,
+body.skin-cockpit .mermaid-wrap {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+/* THE single carve-out to §3.0's layout prohibition (§3.3, §4.3): main yields the
+ * rail's 168px as PADDING. Padding on a block adds no width, so 1200px stays at
+ * overflow 0. Never margin, and never widen .unit-inner to compensate — that
+ * overflows at 1200 and fails the gate. The rail's own fixed geometry is in the
+ * base sheet above, because .rail is a §2.1 class. */
+@media (min-width: 1100px) {
+  body.skin-cockpit main {
+    padding-inline-start: 168px;
+  }
+}
+
+/* —— Skin: newsletter — variant D (§3.4) ——————————————————————————————————
+ * 640px, one surface (white, 100%, forever), zero background changes. Exactly two
+ * boxed elements are permitted: .verdict-tldr and one .note. The h1 lives inside
+ * the TL;DR box (verdict[tldr] with as_h1) and is the largest type on the page.
+ * Rhythm comes from .divider-asterism, never from padding. */
+body.skin-newsletter {
+  --content: 640px;
+  font-size: 18px;
+  line-height: 1.75;
+  background: var(--white);
+}
+body.skin-newsletter p {
+  margin: 0 0 1.45em;
+  line-height: 1.75;
+}
+body.skin-newsletter li {
+  margin: 0.4em 0;
+  line-height: 1.7;
+}
+body.skin-newsletter h2 {
+  font-size: 21px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 1.5rem 0 0.6rem;
+}
+body.skin-newsletter h3 {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+  margin: 1.4rem 0 0.4rem;
+}
+body.skin-newsletter .unit,
+body.skin-newsletter .unit.hero,
+body.skin-newsletter .unit.white,
+body.skin-newsletter .unit.gray,
+body.skin-newsletter .unit.soft,
+body.skin-newsletter .unit.paper,
+body.skin-newsletter .site-foot {
+  background: var(--white);
+}
+body.skin-newsletter .unit {
+  padding: 0.5rem 0;
+  text-align: left;
+}
+body.skin-newsletter .site-foot {
+  border-top: 1px solid var(--line);
+  padding-top: 1.75rem;
+}
+/* `.foot-unit` was doing three jobs at one size: the masthead slug, the source
+ * provenance line under the price matrix, and the sign-off. Uppercase + 0.09em
+ * tracking is a Latin masthead device; on Hangul it renders visibly gappy
+ * ("다 음  호 · 같 은  계 정"), and it flattened three functionally different
+ * lines into one. Base is now a caption; the masthead plate keeps the device. */
+body.skin-newsletter .foot-unit {
+  padding-top: 0;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-secondary);
+}
+body.skin-newsletter #masthead .foot-unit {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+/* The masthead hairline belongs TO the brand line. At the base `.divider` margin
+ * (2rem 0) and the base `.divider-rule::before` width (4.5rem) it rendered as a
+ * short left-hanging dash floating 32px below the slug with 32px under it — the
+ * only 72px stub in the document, establishing a grammar nothing else follows.
+ * An issue plate is a full-measure hairline pulled up under the slug, so commit
+ * to that. `--line` not `--ink`: at full measure the ink weight reads as a rule
+ * across the page rather than a mark belonging to the masthead. */
+body.skin-newsletter .divider-rule::before {
+  width: 100%;
+  background: var(--line);
+}
+body.skin-newsletter #masthead .divider-rule {
+  margin: 0.7rem 0 2.25rem;
+}
+/* `.stats` is hard-coded to `repeat(4, minmax(0, 1fr))` (:520), drawn for a wide
+ * Apple hero. A 3-item row in a fixed 640px column therefore leaves a dead
+ * fourth track and hangs left, which reads as an accident rather than a set.
+ * auto-fit sizes the row to however many items it actually holds. `.stats` is
+ * not one of the six containers a skin may not lay out (§3.4), and the column
+ * itself is untouched. Also gives the row a bottom margin — the base has
+ * `margin: 2rem auto 0`, so a stats row collided with the paragraph under it. */
+body.skin-newsletter .stats {
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 1rem 1.25rem;
+  margin: 1.5rem 0 1.75rem;
+  max-width: none;
+}
+/* The skin repainted `.cta-fill` to --ink with the comment "zero blue fills"
+ * (:2940) but never reached `.steps`, whose counter chip is
+ * `rgba(0,113,227,.12)` behind `var(--blue)` (:785-800). The action list was the
+ * only blue fill left on the page. Same composite as `.verdict-unless-k`, whose
+ * --ink-on-rgba(0,0,0,.06) contrast the sheet already records as 14.77. */
+body.skin-newsletter .steps li::before {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ink);
+}
+/* The two boxes the contract permits were speaking different corner languages:
+ * base `.note` radius 18 (:593) against the skin's `.verdict-tldr` radius 12
+ * (:2909). skin-cockpit did this same pass at :2820; newsletter never did. */
+body.skin-newsletter .note {
+  border-radius: 12px;
+  padding: 1.15rem 1.25rem;
+}
+/* `.pullquote p` is clamp(1.15rem, 2.4vw, 1.4rem): at 375 the vw term collapses
+ * and the quote sets at 18.4px against an 18px body — a pullquote that does not
+ * raise its voice is just an indented paragraph. Fixed at 21px, which stays
+ * under the 32px .verdict-answer so the h1 keeps the top of the type scale. */
+body.skin-newsletter .pullquote p:not(.pullquote-attrib) {
+  font-size: 26px;
+  line-height: 1.35;
+}
+/* §3.4: must beat the base h1 rule at :335 — (0,2,1) does (§3.1 trap 1) */
+body.skin-newsletter .verdict-answer {
+  font-size: 32px;
+  line-height: 1.22;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: none;
+}
+body.skin-newsletter .verdict-tldr {
+  padding: 1.25rem 1.35rem;
+  border-radius: 12px;
+}
+body.skin-newsletter .verdict-because li,
+body.skin-newsletter .verdict-unless {
+  font-size: 15px;
+  line-height: 1.55;
+}
+body.skin-newsletter .lede,
+body.skin-newsletter .unit:not(.hero):not(.dark) .lede {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: none;
+}
+/* The issue's own name. It cannot be a heading — the single h1 belongs to the
+ * verdict (that is what makes this variant the newsletter and not the editorial
+ * opener), and an h2/h3 above the h1 breaks heading order. So it is a `lede`
+ * given title presence in type: above the 19px standfirst, below the 32px
+ * .verdict-answer, so the h1 still owns the top of the scale. */
+body.skin-newsletter #dek .lede {
+  font-size: 24px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.6rem;
+}
+/* Chip comfort at 375. The previous values (26px tall, 4px row gap — measured on
+ * the shipped D) put a 14px label in a pill barely over the WCAG 2.2 AA 24px
+ * target floor, stacked three rows deep with 4px between rows. On a phone that is
+ * a mis-tap row, not a source list. 34px with an 8px row gap keeps the row light
+ * inside a 640px column while giving a thumb somewhere to land. Type size is
+ * unchanged; this is spacing only, so no skin-creates-layout violation. */
+body.skin-newsletter .chiplink {
+  min-height: 34px;
+  padding: 0.15rem 0.7rem;
+  font-size: 14px;
+}
+body.skin-newsletter .chips-inline {
+  gap: 0.5rem 0.4rem;
+}
+body.skin-newsletter .divider-asterism {
+  margin: 2.75rem 0 3.1rem;
+}
+body.skin-newsletter .matrix {
+  margin: 1rem 0 1.25rem;
+}
+body.skin-newsletter .matrix-cell {
+  font-size: 15px;
+}
+body.skin-newsletter .cta-fill {
+  background: var(--ink); /* zero blue fills */
+}
+body.skin-newsletter .cta-fill:hover {
+  background: #000;
+}
+
+</style>
+</head>
+<body class="skin-newsletter">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+
+
+
+<main id="main">
+  <section class="unit white" id="masthead">
+    <div class="unit-inner">
+      <div class="foot-unit">Vesc Research · 24호 · 2026-08-16</div>
+      <hr class="divider divider-rule"/>
+    </div>
+  </section>
+<section class="unit white" id="dek">
+    <div class="unit-inner">
+      <p class="lede">권한 경계가 있는 멀티플레이어 AI</p>
+      <p>같이 쓸 수 있는지, 혼자 써야 하는지만 남깁니다. 약 8분입니다.</p>
+    </div>
+  </section>
+<section class="unit white" id="tldr">
+    <div class="unit-inner">
+      <div class="verdict verdict-tldr"><p class="verdict-label">오늘의 결론</p><h1 class="verdict-answer">여러 사람이 같이 쓰는 AI는 봇 이름이 아니라, 자격증명과 실행 공간이 갈리는지로 고르세요</h1><ul class="verdict-because"><li>Claude Tag, QM, Adapt는 방이나 스코프마다 권한을 따로 둡니다</li><li>Grok Bot, Buzz, Xirp는 여러 봇·세션이 보여도 파일과 로그인이 한 사람 쪽에 붙습니다</li><li>공식 문서가 그 차이를 직접 말합니다</li></ul><p class="verdict-unless"><span class="verdict-unless-k">뒤집힘</span> 봇마다 샌드박스와 자격증명이 갈리고, 회사 방에서 여러 사람이 같은 권한으로 부르게 되면 다시 봅니다</p><p class="verdict-asof">2026-08-16 공식 문서 확인 기준</p></div>
+    </div>
+  </section>
+<section class="unit white" id="core">
+    <div class="unit-inner">
+      <h2>갈리는 축은 봇 이름이 아니라 권한 경계</h2>
+      <p>요즘 제품은 거의 다 멀티플레이어처럼 들립니다. 방에 앉고, 서로 일을 넘기고, 이름이 여러 개입니다.</p>
+      <p>실제로 갈리는 질문은 하나입니다. 한 봇이 연 로그인과 파일을, 옆 봇이나 옆 사람이 그대로 쓰느냐입니다.</p>
+      <p>그 경계가 있으면 여러 사람이 같은 동료를 부를 수 있습니다. 없으면 화면은 여럿인데, 속은 한 사람 컴퓨터입니다.</p>
+      <div class="stats"><div class="stat"><div class="k">갈래</div><div class="v">2</div><div class="s">경계 있음 / 없음</div></div><div class="stat"><div class="k">경계 있음</div><div class="v">3</div><div class="s">Tag, QM, Adapt</div></div><div class="stat"><div class="k">경계 없음</div><div class="v">3</div><div class="s">Grok, Buzz, Xirp</div></div><div class="stat"><div class="k">Xirp 세션</div><div class="v">36,000+</div><div class="s">Spotify 2026-08-10</div></div></div>
+      <div class="chips chips-inline"><a class="chiplink" href="https://claude.com/docs/claude-tag/concepts/agent-identity" target="_blank" rel="noopener">Claude Tag 신원 문서</a><a class="chiplink" href="https://docs.x.ai/grok-bot/faq" target="_blank" rel="noopener">Grok Bot FAQ</a><a class="chiplink" href="https://portal.spotify.com/blog/introducing-xirp" target="_blank" rel="noopener">Spotify Xirp 글</a></div>
+    </div>
+  </section>
+<section class="unit white">
+    <div class="unit-inner">
+      <hr class="divider divider-rule"/>
+    </div>
+  </section>
+<section class="unit white" id="proof">
+    <div class="unit-inner">
+      <h2>만든 쪽이 그 경계를 먼저 말한다</h2>
+      <p>이 구분은 취향이 아닙니다. 제품 문서가 먼저 말합니다.</p>
+      <div class="video-facade-row"><figure class="video-facade"><button type="button" class="video-facade-play" data-embed-src="https://www.youtube.com/embed/_cdX8xkKj_s" aria-label="재생: Claude Tag Tutorial — AI Agent Living in Slack"><img src="/assets/media/permission-boundary-multiplayer-2026-08-16/yt-_cdX8xkKj_s.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" /><span class="video-facade-btn" aria-hidden="true"></span></button><figcaption><p class="video-facade-title"><strong>Claude Tag Tutorial — AI Agent Living in Slack</strong></p><span class="video-facade-meta">Creator Magic · 14:40 · YouTube</span><p class="video-facade-fallback"><a href="https://www.youtube.com/watch?v=_cdX8xkKj_s" target="_blank" rel="noopener">원문에서 보기</a></p></figcaption></figure><figure class="video-facade"><button type="button" class="video-facade-play" data-embed-src="https://www.youtube.com/embed/pnNkTtFdBYQ" aria-label="재생: Introducing Xirp — The Agentic Development Environment Built by Spotify"><img src="/assets/media/permission-boundary-multiplayer-2026-08-16/yt-pnNkTtFdBYQ.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" /><span class="video-facade-btn" aria-hidden="true"></span></button><figcaption><p class="video-facade-title"><strong>Introducing Xirp — The Agentic Development Environment Built by Spotify</strong></p><span class="video-facade-meta">Spotify R&amp;D · 1:05 · YouTube</span><p class="video-facade-fallback"><a href="https://www.youtube.com/watch?v=pnNkTtFdBYQ" target="_blank" rel="noopener">원문에서 보기</a></p></figcaption></figure></div>
+      <p>왼쪽은 슬랙 방에서 여러 사람이 같은 동료를 부릅니다. 오른쪽은 한 개발자가 세션을 여러 개 돌립니다.</p>
+      <div class="source-cards"><article class="source-card"><div class="source-card-body"><p class="source-card-domain">docs.x.ai</p><a class="source-card-title" href="https://docs.x.ai/grok-bot/faq" target="_blank" rel="noopener">Grok Bot FAQ — Do my Bots share one computer?</a><p class="source-card-meta">xAI · 공식 FAQ</p><ul class="source-card-bullets"><li>계정마다 클라우드 컴퓨터 한 대</li><li>파일, 브라우저 세션, 로그인을 봇들이 같이 씀</li><li>봇을 보안 경계로 쓰지 말라고 적음</li><li>봇을 지워도 컴퓨터의 파일과 로그인은 남을 수 있음</li></ul><p class="source-card-go"><a href="https://docs.x.ai/grok-bot/faq" target="_blank" rel="noopener">FAQ 열기</a></p></div></article><article class="source-card"><div class="source-card-body"><p class="source-card-domain">claude.com</p><a class="source-card-title" href="https://claude.com/blog/agent-identity-access-model" target="_blank" rel="noopener">Agent identity — Anthropic</a><p class="source-card-meta">2026-06-24 · Noah Zweben</p><ul class="source-card-bullets"><li>한 사람 대신 행동하면 여러 사람이 같이 쓸 수 없음</li><li>채널마다 에이전트 자기 계정이 있음</li><li>자격증명은 샌드박스가 아니라 프록시가 넣음</li><li>개인 연결은 디엠에만 씀</li></ul><p class="source-card-go"><a href="https://claude.com/blog/agent-identity-access-model" target="_blank" rel="noopener">블로그 열기</a></p></div></article></div>
+      <div class="chips chips-inline"><a class="chiplink" href="https://www.youtube.com/watch?v=0ZxSlp6asXA" target="_blank" rel="noopener">Grok Bot 영상</a><a class="chiplink" href="https://www.youtube.com/watch?v=fyTB9mNanvA" target="_blank" rel="noopener">QM 설명 영상</a><a class="chiplink" href="https://www.youtube.com/watch?v=KDYfPXkUEm0" target="_blank" rel="noopener">Buzz 영상</a></div>
+    </div>
+  </section>
+<section class="unit white">
+    <div class="unit-inner">
+      <hr class="divider divider-asterism"/>
+    </div>
+  </section>
+<section class="unit white" id="how">
+    <div class="unit-inner">
+      <h2>경계가 있으면 방마다 자격증명이 갈린다</h2>
+      <p>Claude Tag는 슬랙 채널에서 Claude 자기 계정으로 일합니다. 사람이 자기 깃허브에 로그인한 상태를 방에 들고 가지 않습니다.</p>
+      <p>관리자가 채널에 붙인 권한 묶음만 씁니다. 스레드는 샌드박스 하나에서 돌고, 바깥으로 나갈 때 프록시가 열쇠를 넣습니다. 열쇠는 모델에게 주지 않습니다.</p>
+      <p>YC QM은 이름을 여러 개 두지 않습니다. 개인 메시지(디엠)는 그 사람 스코프입니다. 채널은 그 방의 스코프입니다. 기억, 파일, 열쇠, 할 일, 샌드박스가 스코프마다 갈립니다.</p>
+      <p>Adapt는 같은 모양의 호스티드 제품입니다. 영어 문장으로 정책을 쓰면, 도구를 부르기 전에 검사합니다. 작업은 격리된 환경에서 돕니다.</p>
+      <div class="chips chips-inline"><a class="chiplink" href="https://claude.com/docs/claude-tag/concepts/security-and-data" target="_blank" rel="noopener">Tag 보안 문서</a><a class="chiplink" href="https://github.com/yc-software/qm" target="_blank" rel="noopener">QM 저장소</a><a class="chiplink" href="https://github.com/yc-software/qm/blob/main/SECURITY.md" target="_blank" rel="noopener">QM 보안 정책</a><a class="chiplink" href="https://adapt.com/docs/features/policies.md" target="_blank" rel="noopener">Adapt 정책</a></div>
+    </div>
+  </section>
+<section class="unit white">
+    <div class="unit-inner">
+      <hr class="divider divider-rule"/>
+    </div>
+  </section>
+<section class="unit white" id="no-boundary">
+    <div class="unit-inner">
+      <h2>경계가 없으면 한 사람 컴퓨터를 나눈다</h2>
+      <p>Grok Bot은 이름 붙은 봇을 여러 명 둡니다. 대화와 역할 기억은 봇마다 갈립니다. 컴퓨터는 계정마다 한 대입니다.</p>
+      <blockquote class="pullquote"><p>공식 FAQ — 내 봇들이 컴퓨터 한 대를 같이 쓰나요? 예. 계정마다 한 대입니다. 봇을 보안 경계로 쓰지 마세요.</p></blockquote>
+      <p>화면은 봇마다 나눌 수 있습니다. 파일, 쿠키, 커맨드라인 로그인은 같이 씁니다. 한 봇이 로그인한 사이트는 다른 봇도 엽니다.</p>
+      <p>Buzz도 채널에 에이전트가 멤버로 앉습니다. 기본값은 Only me입니다. 에이전트는 내 맥에서 돌고, 기본 자격증명은 내 에이전트들이 같이 씁니다. 누가 깨울지는 고를 수 있습니다. 파일 시스템 경계는 아닙니다.</p>
+      <p>Spotify Xirp는 코딩 세션을 여러 개 돌립니다. 세션마다 깃 워크트리를 만듭니다. 같은 체크아웃을 동시에 고치지 않게 하려는 장치입니다. 자격증명은 각 코딩 에이전트의 원래 로그인을 그대로 씁니다.</p>
+      <p>Portal을 붙이면 회사 카탈로그와 이전 세션이 따라옵니다. 맥락은 공유됩니다. 권한 경계는 생기지 않습니다.</p>
+      <div class="source-cards"><article class="source-card"><div class="source-card-body"><p class="source-card-domain">backstage.spotify.com</p><a class="source-card-title" href="https://backstage.spotify.com/docs/xirp" target="_blank" rel="noopener">Xirp — Spotify for Backstage</a><p class="source-card-meta">베타 · macOS · Claude Code, Codex, Gemini</p><ul class="source-card-bullets"><li>맥에서 코딩 에이전트 세션을 여러 개 관리</li><li>세션마다 깃 워크트리</li><li>인증은 각 CLI의 원래 로그인</li><li>Portal은 카탈로그와 이전 세션을 붙임</li></ul><p class="source-card-go"><a href="https://backstage.spotify.com/docs/xirp" target="_blank" rel="noopener">문서 열기</a></p></div></article><article class="source-card"><div class="source-card-body"><p class="source-card-domain">engineering.block.xyz</p><a class="source-card-title" href="https://engineering.block.xyz/blog/configuring-agents-in-buzz" target="_blank" rel="noopener">Configuring Agents in Buzz</a><p class="source-card-meta">Block Engineering · 2026-08</p><ul class="source-card-bullets"><li>에이전트는 채널의 플레이어</li><li>기본 respond-to는 Only me</li><li>내 에이전트끼리는 같은 신뢰 경계</li><li>Agent Defaults에 넣은 키를 여러 에이전트가 재사용</li></ul><p class="source-card-go"><a href="https://engineering.block.xyz/blog/configuring-agents-in-buzz" target="_blank" rel="noopener">글 열기</a></p></div></article></div>
+      <div class="chips chips-inline"><a class="chiplink" href="https://docs.x.ai/grok-bot/approvals-security-and-privacy" target="_blank" rel="noopener">Grok 승인·보안</a><a class="chiplink" href="https://docs.x.ai/grok-bot/computer-and-apps" target="_blank" rel="noopener">Grok 컴퓨터 문서</a><a class="chiplink" href="https://xirp.spotify.com/" target="_blank" rel="noopener">Xirp 제품 페이지</a></div>
+    </div>
+  </section>
+<section class="unit white" id="compare">
+    <div class="unit-inner">
+      <h2>같은 방에 앉는 것과, 같은 컴퓨터를 쓰는 것</h2>
+      <h3>권한 경계가 있는 쪽</h3>
+      <p>여러 사람이 같은 동료를 부릅니다. 자격증명은 방이나 스코프에 붙습니다.</p>
+      <figure class="matrix matrix-compare"><div class="matrix-wrap" role="region" aria-label="권한 경계가 있는 제품" tabindex="0"><table role="table"><thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col" class="matrix-axis">항목</th><th role="columnheader" scope="col" class="matrix-opt">Claude Tag</th><th role="columnheader" scope="col" class="matrix-opt">QM</th><th role="columnheader" scope="col" class="matrix-opt">Adapt</th></tr></thead><tbody role="rowgroup"><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">누가 쓰나</th><td role="cell" class="matrix-cell" data-axis="Claude Tag">채널의 여러 사람</td><td role="cell" class="matrix-cell" data-axis="QM">방·스코프의 여러 사람</td><td role="cell" class="matrix-cell" data-axis="Adapt">회사 슬랙의 여러 사람</td></tr><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">무엇이 갈리나</th><td role="cell" class="matrix-cell" data-axis="Claude Tag">채널 권한 묶음, 스레드 샌드박스</td><td role="cell" class="matrix-cell" data-axis="QM">스코프별 기억, 파일, 샌드박스</td><td role="cell" class="matrix-cell" data-axis="Adapt">정책, 격리 실행, 조직 단위 저장</td></tr><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">자격증명</th><td role="cell" class="matrix-cell" data-axis="Claude Tag">에이전트 자기 계정</td><td role="cell" class="matrix-cell" data-axis="QM">스코프 키체인, 브로커</td><td role="cell" class="matrix-cell" data-axis="Adapt">조직 키로 암호화한 통합</td></tr><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">소유</th><td role="cell" class="matrix-cell" data-axis="Claude Tag">Anthropic 클라우드</td><td role="cell" class="matrix-cell" data-axis="QM">자기 클라우드에 설치</td><td role="cell" class="matrix-cell" data-axis="Adapt">Adapt 클라우드</td></tr></tbody></table></div></figure>
+      <h3>권한 경계가 없는 쪽</h3>
+      <p>여러 봇이나 세션이 보입니다. 파일과 로그인은 한 사람 쪽에 남습니다.</p>
+      <figure class="matrix matrix-compare"><div class="matrix-wrap" role="region" aria-label="권한 경계가 없는 제품" tabindex="0"><table role="table"><thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col" class="matrix-axis">항목</th><th role="columnheader" scope="col" class="matrix-opt">Grok Bot</th><th role="columnheader" scope="col" class="matrix-opt">Buzz</th><th role="columnheader" scope="col" class="matrix-opt">Xirp</th></tr></thead><tbody role="rowgroup"><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">누가 쓰나</th><td role="cell" class="matrix-cell" data-axis="Grok Bot">한 사람의 봇 목록</td><td role="cell" class="matrix-cell" data-axis="Buzz">한 사람의 에이전트 파티</td><td role="cell" class="matrix-cell" data-axis="Xirp">한 사람의 코딩 세션</td></tr><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">무엇이 갈리나</th><td role="cell" class="matrix-cell" data-axis="Grok Bot">대화, 역할 기억</td><td role="cell" class="matrix-cell" data-axis="Buzz">이름, 프롬프트, 메모리</td><td role="cell" class="matrix-cell" data-axis="Xirp">깃 워크트리, 세션 창</td></tr><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">무엇이 같이 쓰이나</th><td role="cell" class="matrix-cell" data-axis="Grok Bot">계정 컴퓨터, 로그인, 파일</td><td role="cell" class="matrix-cell" data-axis="Buzz">같은 맥 홈, 기본 자격증명</td><td role="cell" class="matrix-cell" data-axis="Xirp">맥의 CLI 로그인, Portal 맥락</td></tr><tr role="row"><th role="rowheader" scope="row" class="matrix-axis">공식 경고</th><td role="cell" class="matrix-cell" data-axis="Grok Bot">봇을 보안 경계로 쓰지 말 것</td><td role="cell" class="matrix-cell" data-axis="Buzz">기본값은 Only me</td><td role="cell" class="matrix-cell" data-axis="Xirp">워크트리는 체크아웃 충돌 방지</td></tr></tbody></table></div></figure>
+      <p>같은 칸에 Hermes Bot Mode도 있습니다. 봇은 프로필입니다. 샌드박스가 아닙니다. OpenAI Workspace Agents는 Tag에 더 가깝습니다. 공유 팀 에이전트입니다.</p>
+      <div class="chips chips-inline"><a class="chiplink" href="https://github.com/NousResearch/Hermes-Bot-Mode" target="_blank" rel="noopener">Hermes Bot Mode</a><a class="chiplink" href="https://openai.com/index/introducing-workspace-agents-in-chatgpt/" target="_blank" rel="noopener">OpenAI Workspace Agents</a><a class="chiplink" href="https://adapt.com/docs/security/data-handling.md" target="_blank" rel="noopener">Adapt 데이터 처리</a></div>
+    </div>
+  </section>
+<section class="unit white" id="sit">
+    <div class="unit-inner">
+      <h2>그래서 후자는 혼자 쓰는 느낌이 남는다</h2>
+      <p>경계가 없으면 옆 사람에게 봇을 맡기기 어렵습니다. 그 봇이 연 메일, 브라우저, 파일이 내 것과 한 덩어리이기 때문입니다.</p>
+      <p>그래서 이 제품들은 여러 명이 보여도, 실제로는 한 사람이 팀을 부리는 도구에 가깝습니다. 회사 방에 공용 동료를 앉히는 도구와는 다릅니다.</p>
+      <p>Grok Bot을 회사 공용으로 들이지 않는 이유도 이 축입니다. 제품이 나빠서가 아닙니다. 한 사람 컴퓨터를 나눈 목록이기 때문입니다.</p>
+      <div class="note warn"><div class="t">경계가 있다고 끝이 아닙니다</div><ul><li>QM은 자기 문서에서 초기 실험이라고 말합니다. 공개 멀티테넌트 경계가 아닙니다.</li><li>Adapt는 회사 대화와 통합 자격증명을 자기 클라우드에 둡니다. 정책은 강하지만 소유는 벤더입니다.</li><li>Tag의 채널 기억은 작업 메모입니다. 계약과 고객 원본을 여기에만 두지 마세요.</li></ul></div>
+    </div>
+  </section>
+<section class="unit white">
+    <div class="unit-inner">
+      <hr class="divider divider-rule"/>
+    </div>
+  </section>
+<section class="unit white" id="todo">
+    <div class="unit-inner">
+      <h2>고를 때 먼저 물을 질문</h2>
+      <ol class="steps"><li><strong>쓰임새를 고르세요</strong><br/>여러 사람이 같은 동료를 부를지, 한 사람이 봇을 여러 명 둘지 정합니다.</li><li><strong>공식 문장 하나를 찾으세요</strong><br/>자격증명과 파일이 무엇 단위로 갈리는지 제품 문서에서 확인합니다.</li><li><strong>회사 비밀을 어디에 둘지 정하세요</strong><br/>한 계정 컴퓨터에 로그인을 쌓지 않습니다. 방마다 에이전트 계정을 쓰거나, 아예 개인 도구로 남깁니다.</li></ol>
+      <div class="chips chips-inline"><a class="chiplink" href="https://claude.com/docs/claude-tag/concepts/agent-identity" target="_blank" rel="noopener">Claude Tag 신원</a><a class="chiplink" href="https://docs.x.ai/grok-bot/faq" target="_blank" rel="noopener">Grok Bot FAQ</a><a class="chiplink" href="https://portal.spotify.com/blog/introducing-xirp" target="_blank" rel="noopener">Xirp 소개</a></div>
+      <p>이름 개수와 권한 경계를 섞지 마세요. 화면이 여럿인 것과, 열쇠가 갈리는 것은 다른 문제입니다.</p>
+    </div>
+  </section>
+<section class="unit white">
+    <div class="unit-inner">
+      <hr class="divider divider-rule"/>
+    </div>
+  </section>
+<section class="unit white" id="signoff">
+    <div class="unit-inner">
+      <h2>이 축이 고정되면</h2>
+      <p>새 제품이 나와도 같은 질문을 하면 됩니다. 여러 사람이 같이 쓰나. 자격증명과 실행 공간이 갈리나. 그 두 답이 같아야 회사 방에 앉힐 수 있습니다.</p>
+      <div class="foot-unit">확인 2026-08-16. Claude Tag, QM, Adapt, Grok Bot, Buzz, Xirp 공식 문서.</div>
+    </div>
+  </section>
+<p class="foot">공유 스냅샷(단독 페이지) · 허브 인덱스/다른 글 연결 없음 · generator=vesc-share-drop</p>
+</main>
+
+<footer class="site-foot"><div class="site-foot-inner">Vesc Research · 24호 · 2026-08-16 · <a href="#" target="_blank" rel="noopener">허브로 돌아가기</a></div></footer>
+
+<script>
+/* Apple cinematic kit behaviors */
+(function () {
+  function initMermaid() {
+    if (!window.mermaid) return;
+    try {
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: "neutral",
+        securityLevel: "loose",
+        flowchart: { htmlLabels: true, useMaxWidth: true },
+        sequence: { useMaxWidth: true },
+        gantt: { useMaxWidth: true },
+      });
+      if (typeof window.mermaid.run === "function") {
+        window.mermaid.run({ querySelector: ".mermaid" });
+      }
+    } catch (e) {}
+  }
+
+  function initChapters() {
+    var rail = document.querySelector(".chapters-inner, .rail-inner");
+    if (!rail) return;
+    var links = Array.prototype.slice.call(rail.querySelectorAll('a[href^="#"]'));
+    var map = links
+      .map(function (a) {
+        var id = a.getAttribute("href").slice(1);
+        var el = document.getElementById(id);
+        return el ? { a: a, el: el } : null;
+      })
+      .filter(Boolean);
+    if (!map.length) return;
+
+    var active = null;
+    function setActive(hit) {
+      if (!hit || hit.a === active) return;
+      if (active) {
+        active.classList.remove("is-active");
+        active.removeAttribute("aria-current");
+      }
+      hit.a.classList.add("is-active");
+      hit.a.setAttribute("aria-current", "true");
+      active = hit.a;
+      // Keep the active chip visible WITHOUT scrollIntoView: that call moves the
+      // sequential focus navigation starting point into the nav, which makes the
+      // skip link unreachable by the first Tab (measured: first Tab landed on a
+      // chapter chip on A and on a rail chip on C, at 375 and 1200).
+      // WCAG 2.4.1 Bypass Blocks, 2.4.3 Focus Order. Scroll the container instead.
+      try {
+        var box = hit.a.closest(".chapters-inner, .rail-inner");
+        if (box && box.scrollWidth > box.clientWidth + 1) {
+          var reduce =
+            window.matchMedia &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          var ab = hit.a.getBoundingClientRect();
+          var bb = box.getBoundingClientRect();
+          box.scrollBy({
+            left: ab.left + ab.width / 2 - (bb.left + bb.width / 2),
+            behavior: reduce ? "auto" : "smooth",
+          });
+        }
+      } catch (e) {}
+    }
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            var hit = map.find(function (m) {
+              return m.el === en.target;
+            });
+            setActive(hit);
+          });
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: [0, 1] }
+      );
+      map.forEach(function (m) {
+        io.observe(m.el);
+      });
+    }
+  }
+
+  // Lite-style video facade: poster + host-page title stay until click.
+  // LiquiChart/oEmbed lesson — iframe only after intent; crawlable text first.
+  function initVideoFacades() {
+    var buttons = document.querySelectorAll(".video-facade-play[data-embed-src]");
+    if (!buttons.length) return;
+    Array.prototype.forEach.call(buttons, function (btn) {
+      btn.addEventListener("click", function () {
+        var src = btn.getAttribute("data-embed-src");
+        if (!src) return;
+        // allowlist: only YouTube embed hosts
+        if (
+          src.indexOf("https://www.youtube.com/embed/") !== 0 &&
+          src.indexOf("https://www.youtube-nocookie.com/embed/") !== 0
+        ) {
+          return;
+        }
+        var wrap = document.createElement("div");
+        wrap.className = "video-embed";
+        var iframe = document.createElement("iframe");
+        // autoplay only after explicit click
+        var join = src.indexOf("?") >= 0 ? "&" : "?";
+        iframe.src = src + join + "autoplay=1";
+        iframe.title = btn.getAttribute("aria-label") || "video";
+        iframe.setAttribute(
+          "allow",
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        );
+        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("loading", "lazy");
+        iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+        wrap.appendChild(iframe);
+        btn.replaceWith(wrap);
+      });
+    });
+  }
+
+  function boot() {
+    initMermaid();
+    initChapters();
+    initVideoFacades();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+
+</script>
+</body>
+</html>
